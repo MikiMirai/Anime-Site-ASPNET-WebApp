@@ -1,0 +1,30 @@
+﻿@using ASPNET_WebApp.Core.Constants
+
+@section Scripts {
+	@if	(ViewData[MessageConstants.ErrorMessage] != null)
+	{
+		<script>
+			$(funcion() {
+				toastr.error('@ViewData[MessageConstants.ErrorMessage].ToString()');
+			})
+		</script>
+	}
+
+	@if	(ViewData[MessageConstants.WarningMessage] != null)
+	{
+		<script>
+			$(funcion() {
+				toastr.warning('@ViewData[MessageConstants.WarningMessage].ToString()');
+			})
+		</script>
+	}
+
+	@if	(ViewData[MessageConstants.SuccessMessage] != null)
+	{
+		<script>
+			$(funcion() {
+				toastr.success('@ViewData[MessageConstants.SuccessMessage].ToString()');
+			})
+		</script>
+	}
+}

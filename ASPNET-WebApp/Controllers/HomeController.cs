@@ -1,4 +1,5 @@
-﻿using ASPNET_WebApp.Models;
+﻿using ASPNET_WebApp.Core.Constants;
+using ASPNET_WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,6 +16,8 @@ namespace ASPNET_WebApp.Controllers
 
         public IActionResult Index()
         {
+            ViewData[MessageConstants.ErrorMessage] = "Нещо се счупи!";
+
             return View();
         }
 

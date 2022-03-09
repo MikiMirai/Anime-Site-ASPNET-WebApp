@@ -1,5 +1,5 @@
 using ASPNET_WebApp.Core.Constants;
-using ASPNET_WebApp.Data;
+using ASPNET_WebApp.Infrastructure.Data;
 using ASPNET_WebApp.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

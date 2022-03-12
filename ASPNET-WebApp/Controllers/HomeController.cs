@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace ASPNET_WebApp.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

@@ -67,12 +67,28 @@
                         </nav>
                     </div>
                 </div>
-                <div class="col-lg-2">
-                    <div class="header__right">
-                        <a href="#" class="search-switch"><span class="icon_search"></span></a>
-                        <a href="./login.html"><span class="icon_profile"></span></a>
-                    </div>
-                </div>
+                <ul>
+                    <li>
+                        <div class="col-lg-2">
+                            <div class="header__right">
+                                <a href="#" class="search-switch"><span class="icon_search"></span></a>
+                                @*<a href="./login.html"><span class="icon_profile"></span></a>*@
+                                <div class="image">
+                                  <img src="~/img/avatar5.png" class="icon_profile" alt="User Image">
+                                </div>
+                                <div class="info">
+                                  <a href="#" class="d-block">@User.Identity?.Name</a>
+                                </div>
+                             </div>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                            <i class="fas fa-door-open"></i>
+                            <button type="submit" class="nav-link btn btn-link text-dark">Log Out</button>
+                        </form>
+                    </li>
+                </ul>
             </div>
             <div id="mobile-menu-wrap"></div>
         </div>

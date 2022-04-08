@@ -9,6 +9,43 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\css\adminlte.css.map" />
+    <None Include="wwwroot\css\adminlte.min.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.components.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.components.min.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.core.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.core.min.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.extra-components.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.extra-components.min.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.light.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.light.min.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.pages.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.pages.min.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.plugins.css.map" />
+    <None Include="wwwroot\css\alt\adminlte.plugins.min.css.map" />
+    <None Include="wwwroot\fonts\ElegantIcons.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\js\adminlte.js" />
+    <None Include="wwwroot\js\adminlte.js.map" />
+    <None Include="wwwroot\js\adminlte.min.js" />
+    <None Include="wwwroot\js\adminlte.min.js.map" />
+    <None Include="wwwroot\js\bootstrap.min.js" />
+    <None Include="wwwroot\js\demo.js" />
+    <None Include="wwwroot\js\jquery-3.3.1.min.js" />
+    <None Include="wwwroot\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\js\jquery.slicknav.js" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\js\mixitup.min.js" />
+    <None Include="wwwroot\js\owl.carousel.min.js" />
+    <None Include="wwwroot\js\pages\dashboard.js" />
+    <None Include="wwwroot\js\pages\dashboard2.js" />
+    <None Include="wwwroot\js\pages\dashboard3.js" />
+    <None Include="wwwroot\js\player.js" />
+    <None Include="wwwroot\js\site.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.2" />

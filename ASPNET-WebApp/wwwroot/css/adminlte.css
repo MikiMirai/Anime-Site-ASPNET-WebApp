@@ -596,6 +596,10 @@ pre code {
   margin-left: -7.5px;
 }
 
+.rowcheckbox {
+    margin-left: 20px;
+}
+
 .no-gutters {
   margin-right: 0;
   margin-left: 0;

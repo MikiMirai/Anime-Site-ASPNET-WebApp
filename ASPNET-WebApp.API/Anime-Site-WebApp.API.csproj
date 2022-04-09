@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ASPNET-WebApp.Core\ASPNET-WebApp.Core.csproj" />
+    <ProjectReference Include="..\ASPNET-WebApp.Core\Anime-Site-WebApp.Core.csproj" />
   </ItemGroup>
 
 </Project>

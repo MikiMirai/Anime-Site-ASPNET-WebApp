@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anime-Site-ASPNET-WebApp", "ASPNET-WebApp\Anime-Site-ASPNET-WebApp.csproj", "{9C7DBAE3-6EBF-4868-99A1-636D7C4DF685}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anime-Site-WebApp", "ASPNET-WebApp\Anime-Site-WebApp.csproj", "{9C7DBAE3-6EBF-4868-99A1-636D7C4DF685}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anime-Site-WebApp.Core", "ASPNET-WebApp.Core\Anime-Site-WebApp.Core.csproj", "{C2498DAA-D955-4CC8-A842-84DE44C0F0CA}"
 EndProject

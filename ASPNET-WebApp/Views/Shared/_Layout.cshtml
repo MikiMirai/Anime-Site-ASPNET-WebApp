@@ -29,7 +29,7 @@
     @await RenderSectionAsync("Head", false)
 </head>
 
-<body>
+<body text = "white">
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html">
+                        <a asp-area="" asp-controller="Home" asp-action="Index">
                             <img src="~/img/logo.png" alt="">
                         </a>
                     </div>
@@ -50,15 +50,13 @@
                     <div class="header__nav">
                         <nav class="header__menu mobile-menu">
                             <ul>
-                                <li class="active"><a href="./index.html">Homepage</a></li>
-                                <li><a href="./categories.html">Categories <span class="arrow_carrot-down"></span></a>
+                                <li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Homepage</a></li>
+                                <li><a asp-area="" asp-controller="Home" asp-action="Categories">Categories <span class="arrow_carrot-down"></span></a>
                                     <ul class="dropdown">
                                         <li><a asp-area="" asp-controller="Home" asp-action="Categories">Categories</a></li>
                                         <li><a asp-area="" asp-controller="Home" asp-action="AnimeDetails">AnimeDetails</a></li>
                                         <li><a href="./anime-watching.html">Anime Watching</a></li>
                                         <li><a href="./blog-details.html">Blog Details</a></li>
-                                        <li><a href="./signup.html">Sign Up</a></li>
-                                        <li><a href="./login.html">Login</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="./blog.html">Our Blog</a></li>
@@ -77,30 +75,33 @@
                                   <img src="~/img/avatar5.png" class="icon_profile" alt="User Image">
                                 </div>
                                 <div class="info">
-                                  <a href="#" class="d-block">@User.Identity?.Name</a>
+                                  <a asp-area="Identity" asp-page="/Account/Manage/Index">@User.Identity?.Name</a>
                                 </div>
                              </div>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                            <i class="fas fa-door-open"></i>
-                            <button type="submit" class="nav-link btn btn-link text-dark">Log Out</button>
-                        </form>
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                                <i class="fas fa-door-open"></i>
+                                <button type="submit" class="nav-link btn btn-link text-dark">Log Out</button>
+                            </form>
+                        </li>
+                    }
                 </ul>
             </div>
             <div id="mobile-menu-wrap"></div>
         </div>
     </header>
     <!-- Header End -->
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-@RenderBody
 <!-- Footer Section Begin -->
 <footer class="footer">
     <div class="page-up">
@@ -110,7 +111,7 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="footer__logo">
-                    <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                    <a href="./index.html"><img src="~/img/logo.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6">

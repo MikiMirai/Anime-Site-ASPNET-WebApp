@@ -26,8 +26,12 @@ namespace ASPNET_WebApp.Controllers
             return View();
         }
 
-        [HttpGet]
         public IActionResult Categories()
+        {
+            return View();
+        }
+
+        public IActionResult AnimeDetails()
         {
             return View();
         }

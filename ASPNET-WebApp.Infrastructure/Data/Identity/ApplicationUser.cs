@@ -5,8 +5,7 @@ namespace ASPNET_WebApp.Infrastructure.Data.Identity
 {
     public class ApplicationUser : IdentityUser
     {
-        [Required]
-        public DateTime Birthday { get; set; }
+        public string? ProfilePicture { get; set; }
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
 

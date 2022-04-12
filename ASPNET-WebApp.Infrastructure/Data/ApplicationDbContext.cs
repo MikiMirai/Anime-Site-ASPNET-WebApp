@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ASPNET_WebApp.Infrastructure.Data.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPNET_WebApp.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -15,7 +16,7 @@ namespace ASPNET_WebApp.Infrastructure.Data
         {
             base.OnModelCreating(builder);
             builder.HasDefaultSchema("Identity");
-            builder.Entity<IdentityUser>(entity =>
+            builder.Entity<ApplicationUser>(entity =>
             {
                 entity.ToTable(name: "User");
             });
@@ -44,6 +45,8 @@ namespace ASPNET_WebApp.Infrastructure.Data
                 entity.ToTable("UserTokens");
             });
         }
+
+        public DbSet<ImageModel> Images { get; set; }
 
         public DbSet<Anime> Animes { get; set; }
 

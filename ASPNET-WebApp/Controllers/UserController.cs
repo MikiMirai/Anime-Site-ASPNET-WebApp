@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ASPNET_WebApp.Core.Contracts;
+using ASPNET_WebApp.Infrastructure.Data.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_WebApp.Controllers
@@ -7,24 +9,23 @@ namespace ASPNET_WebApp.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
 
-        public UserController(RoleManager<IdentityRole> _roleManager)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        private readonly IUserService service;
+
+        public UserController(
+            RoleManager<IdentityRole> _roleManager,
+            UserManager<ApplicationUser> _userManager,
+            IUserService _service)
         {
             roleManager = _roleManager;
+            userManager = _userManager;
+            service = _service;
         }
 
         public IActionResult Index()
         {
             return View();
-        }
-
-        public async Task<IActionResult> CreateRole()
-        {
-            await roleManager.CreateAsync(new IdentityRole()
-            {
-                Name = "Administrator"
-            });
-
-            return Ok();
         }
     }
 }

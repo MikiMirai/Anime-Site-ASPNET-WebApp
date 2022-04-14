@@ -3,16 +3,16 @@ using ASPNET_WebApp.Extensions;
 using ASPNET_WebApp.Infrastructure.Data;
 using ASPNET_WebApp.Infrastructure.Data.Identity;
 using ASPNET_WebApp.ModelBinders;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 builder.Services.AddApplicationDbContexts(builder.Configuration);
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews()
@@ -22,6 +22,8 @@ builder.Services.AddControllersWithViews()
         options.ModelBinderProviders.Insert(1, new DateTimeModelBinderProvider(FormattingConstant.NormalDateFormat));
         options.ModelBinderProviders.Insert(2, new DoubleModelBinderProvider());
     });
+
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
@@ -45,6 +47,9 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapControllerRoute(
+    name: "Area",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

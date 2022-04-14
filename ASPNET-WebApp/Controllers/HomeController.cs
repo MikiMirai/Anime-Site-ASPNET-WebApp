@@ -16,9 +16,7 @@ namespace ASPNET_WebApp.Controllers
 
         public IActionResult Index()
         {
-            ViewData[MessageConstants.ErrorMessage] = "Нещо се счупи!";
-
-            return View();
+            return View(nameof(Index));
         }
 
         public IActionResult Privacy()

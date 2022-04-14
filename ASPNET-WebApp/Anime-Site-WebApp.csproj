@@ -61,8 +61,4 @@
     <ProjectReference Include="..\ASPNET-WebApp.Core\Anime-Site-WebApp.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Image\" />
-  </ItemGroup>
-
 </Project>

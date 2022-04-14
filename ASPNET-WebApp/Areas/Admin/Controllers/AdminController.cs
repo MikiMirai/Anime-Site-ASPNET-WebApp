@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASPNET_WebApp.Areas.Admin.Controllers
 {
-    public class UserController : BaseController
+    public class AdminController : BaseController
     {
         private readonly RoleManager<IdentityRole> roleManager;
 
@@ -16,7 +16,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
 
         private readonly IUserService service;
 
-        public UserController(
+        public AdminController(
             RoleManager<IdentityRole> _roleManager,
             UserManager<ApplicationUser> _userManager,
             IUserService _service)

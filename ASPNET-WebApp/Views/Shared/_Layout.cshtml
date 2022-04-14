@@ -14,8 +14,8 @@
 
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap"
-		  rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/8b9cfaa69a.js" crossorigin="anonymous"></script>
 
 	<!-- Css Styles -->
 	<link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">
@@ -32,7 +32,7 @@
 	@await RenderSectionAsync("Head", false)
 </head>
 
-<body text="white">
+<body>
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
@@ -53,21 +53,31 @@
 					<div class="header__nav">
 						<nav class="header__menu mobile-menu">
 							<ul>
-								<li class="active"><a asp-area="" asp-controller="Home" asp-action="Index">Homepage</a></li>
+								<li class="active">
+									<a asp-area="" asp-controller="Home" asp-action="Index">Homepage</a>
+								</li>
 								<li>
 									<a asp-area="" asp-controller="Home" asp-action="Categories">Categories <span class="arrow_carrot-down"></span></a>
 									<ul class="dropdown">
 										<li><a asp-area="" asp-controller="Home" asp-action="Categories">Categories</a></li>
 										<li><a asp-area="" asp-controller="Home" asp-action="AnimeDetails">AnimeDetails</a></li>
 										<li><a href="./anime-watching.html">Anime Watching</a></li>
-										<li><a href="./blog-details.html">Blog Details</a></li>
 									</ul>
 								</li>
-								<li><a href="./blog.html">Our Blog</a></li>
-								<li><a href="#">Contacts</a></li>
 								<li>
-									<a href="#" class="search-switch"><span class="icon_search"></span></a>
-									@*<a href="./login.html"><span class="icon_profile"></span></a>*@
+									<a href="#">Contacts</a>
+								</li>
+								<li>
+									@*<div class="search-model">
+										<div class="h-100 d-flex align-items-center justify-content-center">
+										<div class="search-close-switch"><i class="icon_close"></i></div>
+										<form class="search-model-form">
+										<input type="text" id="search-input" placeholder="Search here.....">
+										</form>
+										</div>
+										</div>
+										<a href="#" class="search-switch"><span class="icon_search"></span></a>
+										<a href="./login.html"><span class="icon_profile"></span></a>*@
 									@if (User.Identity.IsAuthenticated)
 									{
 										@if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
@@ -79,12 +89,14 @@
 								<li>
 									<a asp-area="Identity" asp-page="/Account/Manage/Index">@User.Identity?.Name</a>
 								</li>
-								<li class="nav-item">
+								<li>
+									<i class="fas fa-door-open text-white"></i>
+								</li>
+								<li>
 									@if (User.Identity.IsAuthenticated)
 									{
-										<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-											<i class="fas fa-door-open"></i>
-											<button type="submit" class="nav-link btn btn-link text-white">Log Out</button>
+										<form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+											<button type="submit" class="nav-link btn btn-primary btn-block">Log Out</button>
 										</form>
 									}
 								</li>
@@ -119,34 +131,33 @@
 				<div class="col-lg-6">
 					<div class="footer__nav">
 						<ul>
-							<li class="active"><a href="./index.html">Homepage</a></li>
-							<li><a href="./categories.html">Categories</a></li>
-							<li><a href="./blog.html">Our Blog</a></li>
-							<li><a href="#">Contacts</a></li>
+							<li>
+								<a asp-area="" asp-controller="Home" asp-action="Index">Homepage</a>
+							</li>
+							<li>
+								<a asp-area="" asp-controller="Home" asp-action="Categories">Categories</a>
+							</li>
+							<li>
+								<a asp-area="" asp-controller="Home" asp-action="AnimeDetails">AnimeDetails</a>
+							</li>
+							<li>
+								<a href="#">Contacts</a>
+							</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-3">
-					<p>
+					<p style="color: #c2c2c2;">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					</p>
-
 				</div>
 			</div>
 		</div>
 	</footer>
 	<!-- Footer Section End -->
 	<!-- Search model Begin -->
-	<div class="search-model">
-		<div class="h-100 d-flex align-items-center justify-content-center">
-			<div class="search-close-switch"><i class="icon_close"></i></div>
-			<form class="search-model-form">
-				<input type="text" id="search-input" placeholder="Search here.....">
-			</form>
-		</div>
-	</div>
 	<!-- Search model end -->
 	<!-- Js Plugins -->
 	<script src="~/js/jquery-3.3.1.min.js"></script>

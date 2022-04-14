@@ -46,8 +46,6 @@ namespace ASPNET_WebApp.Infrastructure.Data
             });
         }
 
-        public DbSet<ImageModel> Images { get; set; }
-
         public DbSet<Anime> Animes { get; set; }
 
         public DbSet<Comment> Comments { get; set; }

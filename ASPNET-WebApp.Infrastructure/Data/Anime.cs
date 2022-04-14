@@ -11,7 +11,7 @@ namespace ASPNET_WebApp.Infrastructure.Data
         [StringLength(120)]
         public string Name { get; set; }
 
-        //public string Image { get; set; }
+        public byte[] Image { get; set; }
 
         [Required]
         [Range(0.0, 10.0)]

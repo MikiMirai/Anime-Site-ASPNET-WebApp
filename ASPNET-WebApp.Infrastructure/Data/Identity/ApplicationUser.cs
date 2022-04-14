@@ -5,7 +5,7 @@ namespace ASPNET_WebApp.Infrastructure.Data.Identity
 {
     public class ApplicationUser : IdentityUser
     {
-        public string? ProfilePicture { get; set; }
+        public byte[]? ProfilePicture { get; set; }
 
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
 

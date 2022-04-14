@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ASPNET_WebApp.Infrastructure.Migrations
 {
-    public partial class ImageModelAdded : Migration
+    public partial class AddedCustomProperties : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,38 +19,33 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 schema: "Identity",
                 table: "User");
 
-            migrationBuilder.AddColumn<string>(
+            migrationBuilder.AddColumn<byte[]>(
                 name: "ProfilePicture",
                 schema: "Identity",
                 table: "User",
-                type: "nvarchar(max)",
+                type: "varbinary(max)",
                 nullable: true);
 
-            migrationBuilder.CreateTable(
-                name: "Images",
+            migrationBuilder.AddColumn<byte[]>(
+                name: "Image",
                 schema: "Identity",
-                columns: table => new
-                {
-                    ImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(100)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.ImageId);
-                });
+                table: "Animes",
+                type: "varbinary(max)",
+                nullable: false,
+                defaultValue: new byte[0]);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Images",
-                schema: "Identity");
-
             migrationBuilder.DropColumn(
                 name: "ProfilePicture",
                 schema: "Identity",
                 table: "User");
+
+            migrationBuilder.DropColumn(
+                name: "Image",
+                schema: "Identity",
+                table: "Animes");
 
             migrationBuilder.AddColumn<DateTime>(
                 name: "Birthday",

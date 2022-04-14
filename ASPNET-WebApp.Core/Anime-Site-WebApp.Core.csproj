@@ -11,8 +11,4 @@
     <ProjectReference Include="..\ASPNET-WebApp.Infrastructure\Anime-Site-WebApp.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

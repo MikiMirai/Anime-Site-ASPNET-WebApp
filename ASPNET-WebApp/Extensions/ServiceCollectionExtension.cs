@@ -4,7 +4,7 @@ using ASPNET_WebApp.Infrastructure.Data;
 using ASPNET_WebApp.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace ASPNET_WebApp.Extensions
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtension
     {
@@ -12,6 +12,7 @@ namespace ASPNET_WebApp.Extensions
         {
             services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAnimeService, AnimeService>();
 
             return services;
         }

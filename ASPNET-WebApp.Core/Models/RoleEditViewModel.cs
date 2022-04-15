@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ASPNET_WebApp.Core.Models
 {
-    public class RolesManagementViewModel
+    public class RoleEditViewModel
     {
         public string UserId { get; set; }
 

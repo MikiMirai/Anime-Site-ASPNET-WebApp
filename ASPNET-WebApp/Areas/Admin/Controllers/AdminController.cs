@@ -110,7 +110,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
         //        await roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
         //    }
 
-        //    return Ok();
+        //    return RedirectToAction(nameof(ManageUsers));
         //}
 
         //public async Task<IActionResult> CreateRole()
@@ -120,7 +120,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
         //        Name = "Editor"
         //    });
 
-        //    return Ok();
+        //    return RedirectToAction(nameof(ManageUsers));
         //}
     }
 }

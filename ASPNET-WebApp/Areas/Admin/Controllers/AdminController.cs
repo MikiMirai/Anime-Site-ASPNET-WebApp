@@ -113,14 +113,14 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
         //    return Ok();
         //}
 
-        public async Task<IActionResult> CreateRole()
-        {
-            await roleManager.CreateAsync(new IdentityRole()
-            {
-                Name = "Admin"
-            });
+        //public async Task<IActionResult> CreateRole()
+        //{
+        //    await roleManager.CreateAsync(new IdentityRole()
+        //    {
+        //        Name = "Editor"
+        //    });
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

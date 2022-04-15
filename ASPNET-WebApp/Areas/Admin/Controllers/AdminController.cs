@@ -2,12 +2,14 @@
 using ASPNET_WebApp.Core.Contracts;
 using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASPNET_WebApp.Areas.Admin.Controllers
 {
+    [Authorize(Roles = RoleConstants.Roles.Admin)]
     public class AdminController : BaseController
     {
         private readonly RoleManager<IdentityRole> roleManager;

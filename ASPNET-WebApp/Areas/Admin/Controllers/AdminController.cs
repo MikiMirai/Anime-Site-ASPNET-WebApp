@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ASPNET_WebApp.Areas.Admin.Controllers
 {
-    [Authorize(Roles = RoleConstants.Roles.Admin)]
     public class AdminController : BaseController
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -43,7 +42,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
         public async Task<IActionResult> Roles(string id)
         {
             var user = await service.GetUserById(id);
-            var model = new RolesManagementViewModel()
+            var model = new RoleEditViewModel()
             {
                 UserId = user.Id,
                 UserName = user.UserName
@@ -63,7 +62,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Roles(RolesManagementViewModel model)
+        public async Task<IActionResult> Roles(RoleEditViewModel model)
         {
             var user = await service.GetUserById(model.UserId);
             var userRoles = await userManager.GetRolesAsync(user);

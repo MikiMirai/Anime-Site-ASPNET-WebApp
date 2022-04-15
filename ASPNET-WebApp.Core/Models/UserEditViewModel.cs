@@ -7,7 +7,7 @@ namespace ASPNET_WebApp.Core.Models
         public string UserId { get; set; }
 
         [Required]
-        [Display(Name = "UserName")]
+        [Display(Name = "Username")]
         public string? UserName { get; set; }
     }
 }

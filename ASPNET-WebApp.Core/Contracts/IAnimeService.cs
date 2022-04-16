@@ -5,12 +5,16 @@ namespace ASPNET_WebApp.Core.Contracts
 {
     public interface IAnimeService
     {
-        Task<IEnumerable<AnimeListViewModel>> GetAnime();
+        Task<IEnumerable<AnimeListViewModel>> GetAnimes();
 
         Task<AnimeEditViewModel> GetAnimeForEdit(string id);
 
         Task<bool> UpdateAnime(AnimeEditViewModel model);
 
+        Task<bool> UpdateAnimeImage(AnimeCreateViewModel model);
+
         Task<Anime> GetAnimeById(string id);
+
+        Task<bool> CreateAnime(AnimeCreateViewModel model);
     }
 }

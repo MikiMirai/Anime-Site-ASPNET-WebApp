@@ -7,7 +7,7 @@ namespace ASPNET_WebApp.Infrastructure.Data
     public class Review
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [ForeignKey("User")]
         [MaxLength(450)]

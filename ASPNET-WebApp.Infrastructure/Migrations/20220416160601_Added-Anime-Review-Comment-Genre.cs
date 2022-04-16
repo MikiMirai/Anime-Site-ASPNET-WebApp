@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ASPNET_WebApp.Infrastructure.Migrations
 {
-    public partial class RenamedIdentityTableNames : Migration
+    public partial class AddedAnimeReviewCommentGenre : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,8 +17,9 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     Score = table.Column<double>(type: "float", nullable: false),
                     Aired = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Episodes = table.Column<int>(type: "int", nullable: false),
@@ -26,13 +27,25 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
                     Studios = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Producers = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Genres = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Duration = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Rating = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Animes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Genre",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genre", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,8 +69,7 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Birthday = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -76,6 +88,33 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AnimeGenre",
+                schema: "Identity",
+                columns: table => new
+                {
+                    AnimesId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    GenresId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnimeGenre", x => new { x.AnimesId, x.GenresId });
+                    table.ForeignKey(
+                        name: "FK_AnimeGenre_Animes_AnimesId",
+                        column: x => x.AnimesId,
+                        principalSchema: "Identity",
+                        principalTable: "Animes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AnimeGenre_Genre_GenresId",
+                        column: x => x.GenresId,
+                        principalSchema: "Identity",
+                        principalTable: "Genre",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -106,12 +145,12 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
                     Score = table.Column<double>(type: "float", nullable: false),
-                    AnimeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    AnimeId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -230,11 +269,11 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ReviewId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -253,6 +292,12 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AnimeGenre_GenresId",
+                schema: "Identity",
+                table: "AnimeGenre",
+                column: "GenresId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_ReviewId",
@@ -328,6 +373,10 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AnimeGenre",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
                 name: "Comments",
                 schema: "Identity");
 
@@ -349,6 +398,10 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserTokens",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
+                name: "Genre",
                 schema: "Identity");
 
             migrationBuilder.DropTable(

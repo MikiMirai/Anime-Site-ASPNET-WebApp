@@ -5,13 +5,13 @@ namespace ASPNET_WebApp.Infrastructure.Data
     public class Anime
     {
         [Key]
-        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         [StringLength(120)]
         public string Name { get; set; }
 
-        public byte[] Image { get; set; }
+        public byte[]? Image { get; set; }
 
         [Required]
         [Range(0.0, 10.0)]
@@ -39,10 +39,6 @@ namespace ASPNET_WebApp.Infrastructure.Data
         public string Producers { get; set; }
 
         [Required]
-        [StringLength(200)]
-        public string Genres { get; set; }
-
-        [Required]
         [StringLength(30)]
         public string Duration { get; set; }
 
@@ -50,6 +46,7 @@ namespace ASPNET_WebApp.Infrastructure.Data
         [StringLength(50)]
         public string Rating { get; set; }
 
+        public ICollection<Genre> Genres { get; set; } = new List<Genre>();
         public ICollection<Review> Reviews { get; set; } = new List<Review>();
     }
 }

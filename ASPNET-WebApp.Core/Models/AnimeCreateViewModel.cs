@@ -2,7 +2,7 @@
 
 namespace ASPNET_WebApp.Core.Models
 {
-    public class AnimeEditViewModel
+    public class AnimeCreateViewModel
     {
         public string Id { get; set; }
 

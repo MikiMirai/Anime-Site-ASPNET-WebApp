@@ -1,0 +1,60 @@
+﻿@using ASPNET_WebApp.Core.Models
+@model IEnumerable<AnimeListViewModel>
+@{
+}
+
+<div class="row">
+	<div class="col-12">
+		<div class="text-white">
+			<div class="card-header">
+				<h3 class="card-title">Application Animes</h3>
+				<div class="card-tools">
+					<div class="input-group input-group-sm" style="width: 20%;">
+						<input type="text" name="table_search" class="form-control float-right" style="color: white; background: #0b0c2a;" placeholder="Search">
+						<div class="input-group-append">
+							<button type="submit" class="text-white btn btn-default">
+								<i class="fas fa-search"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="card-body table-responsive p-0">
+				<table class="text-white table text-nowrap">
+					<thead>
+						<tr>
+							<th>Image</th>
+							<th>Name</th>
+							<th>Aired</th>
+							<th>Episodes</th>
+							<th>Status</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var anime in Model)
+						{
+							<tr>
+								<td>
+									@if (@anime.Image != null)
+									{
+										<img style="width: 40px; height: 40px; object-fit: cover; border-radius: 30px;" src="data:image/*;base64,@(Convert.ToBase64String(anime.Image))">
+									}
+								</td>
+								<td>@anime.Name</td>
+								<td>@anime.Aired</td>
+								<td>@anime.Episodes</td>
+								<td>@anime.Status</td>
+								@*<td>
+									<a asp-area="" asp-action="edit" asp-controller="admin" asp-route-id="@anime.Id" class="btn btn-block btn-outline-info btn-xs">Edit</a>
+									<a asp-area="" asp-action="roles" asp-controller="admin" asp-route-id="@anime.Id" class="btn btn-block btn-outline-warning btn-xs">Roles</a>
+									</td>*@
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

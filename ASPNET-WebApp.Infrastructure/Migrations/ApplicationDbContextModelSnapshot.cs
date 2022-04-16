@@ -18,16 +18,30 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("Identity")
-                .HasAnnotation("ProductVersion", "6.0.3")
+                .HasAnnotation("ProductVersion", "6.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AnimeGenre", b =>
+                {
+                    b.Property<string>("AnimesId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("GenresId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AnimesId", "GenresId");
+
+                    b.HasIndex("GenresId");
+
+                    b.ToTable("AnimeGenre", "Identity");
+                });
+
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Anime", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Aired")
                         .IsRequired()
@@ -47,13 +61,7 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                     b.Property<int>("Episodes")
                         .HasColumnType("int");
 
-                    b.Property<string>("Genres")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
                     b.Property<byte[]>("Image")
-                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
@@ -91,9 +99,8 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Comment", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -103,8 +110,8 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<Guid?>("ReviewId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ReviewId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -118,6 +125,21 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comments", "Identity");
+                });
+
+            modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Genre", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genre", "Identity");
                 });
 
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Identity.ApplicationUser", b =>
@@ -190,12 +212,11 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Review", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("AnimeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("AnimeId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -357,6 +378,21 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserTokens", "Identity");
+                });
+
+            modelBuilder.Entity("AnimeGenre", b =>
+                {
+                    b.HasOne("ASPNET_WebApp.Infrastructure.Data.Anime", null)
+                        .WithMany()
+                        .HasForeignKey("AnimesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ASPNET_WebApp.Infrastructure.Data.Genre", null)
+                        .WithMany()
+                        .HasForeignKey("GenresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Comment", b =>

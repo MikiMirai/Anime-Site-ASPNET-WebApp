@@ -39,17 +39,17 @@
 								<td>
 									@if (@anime.Image != null)
 									{
-										<img style="width: 40px; height: 40px; object-fit: cover; border-radius: 30px;" src="data:image/*;base64,@(Convert.ToBase64String(anime.Image))">
+										<img style="width: 50px; height: 50px;" src="data:image/*;base64,@(Convert.ToBase64String(anime.Image))">
 									}
 								</td>
 								<td>@anime.Name</td>
 								<td>@anime.Aired</td>
 								<td>@anime.Episodes</td>
 								<td>@anime.Status</td>
-								@*<td>
-									<a asp-area="" asp-action="edit" asp-controller="admin" asp-route-id="@anime.Id" class="btn btn-block btn-outline-info btn-xs">Edit</a>
-									<a asp-area="" asp-action="roles" asp-controller="admin" asp-route-id="@anime.Id" class="btn btn-block btn-outline-warning btn-xs">Roles</a>
-									</td>*@
+								<td>
+									<a asp-area="" asp-action="edit" asp-controller="anime" asp-route-id="@anime.Id" class="btn btn-block btn-outline-info btn-xs">Edit</a>
+									@*<a asp-area="" asp-action="delete" asp-controller="anime" asp-route-id="@anime.Id" class="btn btn-block btn-outline-warning btn-xs">Delete</a>*@
+								</td>
 							</tr>
 						}
 					</tbody>

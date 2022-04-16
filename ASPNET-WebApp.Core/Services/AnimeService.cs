@@ -62,7 +62,7 @@ namespace ASPNET_WebApp.Core.Services
         {
             bool result = false;
 
-            var anime = await repo.GetByIdAsync<Anime>(model.Id);
+            var anime = await repo.GetByIdAsync<Anime>(model.AnimeId);
 
             if (anime != null)
             {

@@ -69,36 +69,44 @@ namespace ASPNET_WebApp.Controllers
         }
 
         // GET: AnimeController/Edit/5
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            var model = await animeService.GetAnimeForEdit(id);
+
+            return View(model);
         }
 
         // POST: AnimeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(AnimeEditViewModel model)
         {
-            try
-            {
-                //if (Request.Form.Files.Count > 0)
-                //{
-                //    IFormFile file = Request.Form.Files.FirstOrDefault();
-                //    using (var dataStream = new MemoryStream())
-                //    {
-                //        await file.CopyToAsync(dataStream);
-                //        user.ProfilePicture = dataStream.ToArray();
-                //    }
-                //    await _userManager.UpdateAsync(user);
-                //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
 
-                return RedirectToAction(nameof(Index));
-
-            }
-            catch
+            if (Request.Form.Files.Count > 0)
             {
-                return View();
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    model.Image = dataStream.ToArray();
+                }
             }
+
+            if (await animeService.UpdateAnime(model))
+            {
+                ViewData[MessageConstants.SuccessMessage] = "Успешен запис!";
+                return RedirectToAction(nameof(ManageAnimes));
+            }
+            else
+            {
+                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+            }
+
+            return View(model);
         }
 
         // GET: AnimeController/Delete/5

@@ -111,7 +111,7 @@ namespace ASPNET_WebApp.Core.Services
             var anime = new Anime
             {
                 Name = model.Name,
-                //Image = model.Image,
+                Image = model.Image,
                 Aired = model.Aired,
                 Episodes = model.Episodes,
                 Status = model.Status,

@@ -45,15 +45,15 @@ namespace ASPNET_WebApp.Controllers
             //    return View(model);
             //}
 
-            //if (Request.Form.Files.Count > 0)
-            //{
-            //    IFormFile file = Request.Form.Files.FirstOrDefault();
-            //    using (var dataStream = new MemoryStream())
-            //    {
-            //        await file.CopyToAsync(dataStream);
-            //        model.Image = dataStream.ToArray();
-            //    }
-            //}
+            if (Request.Form.Files.Count > 0)
+            {
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    model.Image = dataStream.ToArray();
+                }
+            }
 
             if (await animeService.CreateAnime(model))
             {

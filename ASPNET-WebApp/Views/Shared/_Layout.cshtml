@@ -57,11 +57,17 @@
 									<a asp-area="" asp-controller="Home" asp-action="Index">Homepage</a>
 								</li>
 								<li>
-									<a asp-area="" asp-controller="Home" asp-action="Categories">Categories <span class="arrow_carrot-down"></span></a>
+									<a asp-area="" asp-controller="Anime" asp-action="AllAnime">All Animes <span class="arrow_carrot-down"></span></a>
 									<ul class="dropdown">
-										<li><a asp-area="" asp-controller="Home" asp-action="Categories">Categories</a></li>
-										<li><a asp-area="" asp-controller="Home" asp-action="AnimeDetails">AnimeDetails</a></li>
-										<li><a href="./anime-watching.html">Anime Watching</a></li>
+										<li>
+											<a asp-area="" asp-controller="Anime" asp-action="AllAnime">All Animes</a>
+										</li>
+										<li>
+											<a asp-area="" asp-controller="Anime" asp-action="AnimeDetails">Anime Details</a>
+										</li>
+										<li>
+											<a href="./anime-watching.html">Anime Watching</a>
+										</li>
 									</ul>
 								</li>
 								<li>
@@ -147,7 +153,7 @@
 								<a asp-area="" asp-controller="Home" asp-action="Index">Homepage</a>
 							</li>
 							<li>
-								<a asp-area="" asp-controller="Home" asp-action="Categories">Categories</a>
+								<a asp-area="" asp-controller="Home" asp-action="AllAnime">All Animes</a>
 							</li>
 							<li>
 								<a asp-area="" asp-controller="Home" asp-action="AnimeDetails">AnimeDetails</a>

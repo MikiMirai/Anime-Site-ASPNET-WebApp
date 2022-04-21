@@ -20,17 +20,21 @@ namespace ASPNET_WebApp.Core.Services
 
         public async Task<IEnumerable<AnimeListViewModel>> GetAnimes()
         {
-            return await repo.All<Anime>()
-                .Select(anime => new AnimeListViewModel()
-                {
-                    Id = anime.Id,
-                    Name = anime.Name,
-                    Image = anime.Image,
-                    Aired = anime.Aired,
-                    Episodes = anime.Episodes,
-                    Status = anime.Status,
-                })
+            var animes = repo.All<Anime>();
+
+            var animeView = await animes.Select(anime => new AnimeListViewModel()
+            {
+                Id = anime.Id,
+                Name = anime.Name,
+                Image = anime.Image,
+                Aired = anime.Aired,
+                Episodes = anime.Episodes,
+                Status = anime.Status,
+                ReviewCount = anime.Reviews.Count,
+            })
                 .ToListAsync();
+
+            return animeView;
         }
 
         public async Task<Anime> GetAnimeById(string id)
@@ -42,8 +46,14 @@ namespace ASPNET_WebApp.Core.Services
         {
             var anime = await repo.GetByIdAsync<Anime>(id);
 
-            return new AnimeEditViewModel()
+            if (anime == null)
             {
+                throw new ArgumentNullException(nameof(anime));
+            }
+
+            var foundAnime = new AnimeEditViewModel()
+            {
+                Id=anime.Id,
                 Name = anime.Name,
                 Image = anime.Image,
                 Aired = anime.Aired,
@@ -56,13 +66,15 @@ namespace ASPNET_WebApp.Core.Services
                 Duration = anime.Duration,
                 Rating = anime.Rating
             };
+
+            return foundAnime;
         }
 
         public async Task<bool> UpdateAnime(AnimeEditViewModel model)
         {
             bool result = false;
 
-            var anime = await repo.GetByIdAsync<Anime>(model.AnimeId);
+            var anime = await repo.GetByIdAsync<Anime>(model.Id);
 
             if (anime != null)
             {
@@ -77,22 +89,6 @@ namespace ASPNET_WebApp.Core.Services
                 anime.Genres = model.Genres;
                 anime.Duration = model.Duration;
                 anime.Rating = model.Rating;
-
-                await repo.SaveChangesAsync();
-                result = true;
-            }
-
-            return result;
-        }
-        public async Task<bool> UpdateAnimeImage(AnimeCreateViewModel model)
-        {
-            bool result = false;
-
-            var anime = await repo.GetByIdAsync<Anime>(model.Id);
-
-            if (anime != null)
-            {
-                anime.Image = model.Image;
 
                 await repo.SaveChangesAsync();
                 result = true;

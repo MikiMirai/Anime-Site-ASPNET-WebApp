@@ -8,5 +8,6 @@
         public string Aired { get; set; }
         public int Episodes { get; set; }
         public string Status { get; set; }
+        public int ReviewCount { get; set; }
     }
 }

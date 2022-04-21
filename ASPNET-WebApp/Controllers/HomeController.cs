@@ -24,16 +24,6 @@ namespace ASPNET_WebApp.Controllers
             return View();
         }
 
-        public IActionResult Categories()
-        {
-            return View();
-        }
-
-        public IActionResult AnimeDetails()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

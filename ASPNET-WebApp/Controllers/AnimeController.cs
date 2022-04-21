@@ -21,6 +21,21 @@ namespace ASPNET_WebApp.Controllers
             return View();
         }
 
+        public async Task<IActionResult> AnimeDetails(string id)
+        {
+            var animes = await animeService.GetAnimeById(id);
+
+            return View(animes);
+        }
+
+        // GET
+        public async Task<IActionResult> AllAnime()
+        {
+            var animes = await animeService.GetAnimes();
+
+            return View(animes);
+        }
+
         // GET: AnimeController/Details/5
         public async Task<IActionResult> ManageAnimes()
         {

@@ -52,5 +52,7 @@ namespace ASPNET_WebApp.Infrastructure.Data
 
         public DbSet<Review> Reviews { get; set; }
 
+        public DbSet<Genre> Genres { get; set; }
+
     }
 }

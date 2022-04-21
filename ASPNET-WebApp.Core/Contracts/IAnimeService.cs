@@ -11,8 +11,6 @@ namespace ASPNET_WebApp.Core.Contracts
 
         Task<bool> UpdateAnime(AnimeEditViewModel model);
 
-        Task<bool> UpdateAnimeImage(AnimeCreateViewModel model);
-
         Task<Anime> GetAnimeById(string id);
 
         Task<bool> CreateAnime(AnimeCreateViewModel model);

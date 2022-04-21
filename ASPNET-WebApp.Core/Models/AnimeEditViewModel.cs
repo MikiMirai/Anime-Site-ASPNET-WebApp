@@ -4,7 +4,7 @@ namespace ASPNET_WebApp.Core.Models
 {
     public class AnimeEditViewModel
     {
-        public string AnimeId { get; set; }
+        public string Id { get; set; }
 
         public string Name { get; set; }
 

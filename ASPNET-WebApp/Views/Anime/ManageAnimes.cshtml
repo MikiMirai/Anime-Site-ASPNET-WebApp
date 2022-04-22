@@ -8,14 +8,21 @@
 		<div class="text-white">
 			<div class="card-header">
 				<h3 class="card-title">Application Animes</h3>
-				<div class="card-tools">
-					<div class="input-group input-group-sm" style="width: 20%;">
-						<input type="text" name="table_search" class="form-control float-right" style="color: white; background: #0b0c2a;" placeholder="Search">
-						<div class="input-group-append">
-							<button type="submit" class="text-white btn btn-default">
-								<i class="fas fa-search"></i>
-							</button>
+				<div class="card-tools row">
+					<div class="col-lg-4">
+						<div class="input-group input-group-sm" style="width: 80%;">
+							<input type="text" name="table_search" class="form-control float-right" style="color: white; background: #0b0c2a;" placeholder="Search">
+							<div class="input-group-append">
+								<button type="submit" class="text-white btn btn-default">
+									<i class="fas fa-search"></i>
+								</button>
+							</div>
 						</div>
+					</div>
+					<div class="col-lg-4">
+						<button type="button" class="nav-link btn btn-primary btn-block">
+							<a asp-area="" asp-controller="Anime" asp-action="Create">Create Anime</a>
+						</button>
 					</div>
 				</div>
 			</div>

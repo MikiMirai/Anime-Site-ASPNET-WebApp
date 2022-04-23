@@ -53,7 +53,7 @@ namespace ASPNET_WebApp.Core.Services
 
             var foundAnime = new AnimeEditViewModel()
             {
-                Id=anime.Id,
+                Id = anime.Id,
                 Name = anime.Name,
                 Image = anime.Image,
                 Aired = anime.Aired,
@@ -114,7 +114,6 @@ namespace ASPNET_WebApp.Core.Services
                 Description = model.Description,
                 Studios = model.Studios,
                 Producers = model.Producers,
-                Genres = model.Genres,
                 Duration = model.Duration,
                 Rating = model.Rating,
             };

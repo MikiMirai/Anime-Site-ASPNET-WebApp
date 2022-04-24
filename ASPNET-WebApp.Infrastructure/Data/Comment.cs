@@ -9,10 +9,13 @@ namespace ASPNET_WebApp.Infrastructure.Data
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        [ForeignKey("User")]
-        [MaxLength(450)]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
+
+        [ForeignKey(nameof(Review))]
+        public string ReviewId { get; set; }
+        public Review Review { get; set; }
 
         [Required]
         public DateTime Date { get; set; }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ASPNET_WebApp.Infrastructure.Migrations
 {
-    public partial class AddedAnimeReviewCommentGenre : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,7 +19,7 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Score = table.Column<double>(type: "float", nullable: false),
                     Aired = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
                     Episodes = table.Column<int>(type: "int", nullable: false),
@@ -36,7 +36,7 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Genre",
+                name: "Genres",
                 schema: "Identity",
                 columns: table => new
                 {
@@ -45,7 +45,7 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genre", x => x.Id);
+                    table.PrimaryKey("PK_Genres", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -109,10 +109,10 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AnimeGenre_Genre_GenresId",
+                        name: "FK_AnimeGenre_Genres_GenresId",
                         column: x => x.GenresId,
                         principalSchema: "Identity",
-                        principalTable: "Genre",
+                        principalTable: "Genres",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -146,11 +146,11 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AnimeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: false),
-                    Score = table.Column<double>(type: "float", nullable: false),
-                    AnimeId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Score = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,7 +160,8 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         column: x => x.AnimeId,
                         principalSchema: "Identity",
                         principalTable: "Animes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Reviews_User_UserId",
                         column: x => x.UserId,
@@ -270,10 +271,10 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", maxLength: 450, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ReviewId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    ReviewId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -283,14 +284,15 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         column: x => x.ReviewId,
                         principalSchema: "Identity",
                         principalTable: "Reviews",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_User_UserId",
                         column: x => x.UserId,
                         principalSchema: "Identity",
                         principalTable: "User",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -401,7 +403,7 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "Genre",
+                name: "Genres",
                 schema: "Identity");
 
             migrationBuilder.DropTable(

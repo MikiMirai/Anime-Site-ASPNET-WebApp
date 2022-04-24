@@ -9,10 +9,13 @@ namespace ASPNET_WebApp.Infrastructure.Data
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
-        [ForeignKey("User")]
-        [MaxLength(450)]
+        [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
+
+        [ForeignKey(nameof(Anime))]
+        public string AnimeId { get; set; }
+        public Anime Anime { get; set; }
 
         [Required]
         public DateTime Date { get; set; }
@@ -25,6 +28,6 @@ namespace ASPNET_WebApp.Infrastructure.Data
         [Range(0.0, 10.0)]
         public double Score { get; set; }
 
-        public ICollection<Comment> Reviews { get; set; } = new List<Comment>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

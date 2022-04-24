@@ -61,8 +61,10 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                     b.Property<int>("Episodes")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -111,11 +113,11 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("ReviewId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -216,6 +218,7 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("AnimeId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("Date")
@@ -231,7 +234,6 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -397,30 +399,38 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Comment", b =>
                 {
-                    b.HasOne("ASPNET_WebApp.Infrastructure.Data.Review", null)
-                        .WithMany("Reviews")
-                        .HasForeignKey("ReviewId");
+                    b.HasOne("ASPNET_WebApp.Infrastructure.Data.Review", "Review")
+                        .WithMany("Comments")
+                        .HasForeignKey("ReviewId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("ASPNET_WebApp.Infrastructure.Data.Identity.ApplicationUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Review");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Review", b =>
                 {
-                    b.HasOne("ASPNET_WebApp.Infrastructure.Data.Anime", null)
+                    b.HasOne("ASPNET_WebApp.Infrastructure.Data.Anime", "Anime")
                         .WithMany("Reviews")
-                        .HasForeignKey("AnimeId");
+                        .HasForeignKey("AnimeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("ASPNET_WebApp.Infrastructure.Data.Identity.ApplicationUser", "User")
                         .WithMany("Reviews")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Anime");
 
                     b.Navigation("User");
                 });
@@ -490,7 +500,7 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
 
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Review", b =>
                 {
-                    b.Navigation("Reviews");
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

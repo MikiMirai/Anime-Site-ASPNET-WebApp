@@ -14,7 +14,35 @@ namespace ASPNET_WebApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Genre>()
+                .HasMany(g => g.Animes)
+                .WithMany(a => a.Genres);
+
+            builder.Entity<Review>()
+                .HasOne(r => r.Anime)
+                .WithMany(r => r.Reviews)
+                .HasForeignKey(r => r.AnimeId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Review>()
+                .HasOne(u => u.User)
+                .WithMany(r => r.Reviews)
+                .HasForeignKey(r => r.UserId);
+
+            builder.Entity<Comment>()
+                .HasOne(u => u.User)
+                .WithMany(c => c.Comments)
+                .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Comment>()
+                .HasOne(c => c.Review)
+                .WithMany(c => c.Comments)
+                .HasForeignKey(c => c.ReviewId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
+
             builder.HasDefaultSchema("Identity");
             builder.Entity<ApplicationUser>(entity =>
             {
@@ -50,9 +78,8 @@ namespace ASPNET_WebApp.Infrastructure.Data
 
         public DbSet<Comment> Comments { get; set; }
 
-        public DbSet<Review> Reviews { get; set; }
-
         public DbSet<Genre> Genres { get; set; }
 
+        public DbSet<Review> Reviews { get; set; }
     }
 }

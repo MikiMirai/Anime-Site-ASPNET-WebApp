@@ -1,4 +1,5 @@
-﻿using ASPNET_WebApp.Infrastructure.Data;
+﻿using ASPNET_WebApp.Core.Models;
+using ASPNET_WebApp.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,14 @@ namespace ASPNET_WebApp.Core.Contracts
 
 		Task<bool> UpdateGenre(Genre model);
 
+		Task<bool> HasGenre(Anime anime, string name);
+
 		Task<Genre> GetGenreForEdit(string id);
 
 		Task<IEnumerable<Genre>> GetGenres();
+
+		Task<bool> RemoveAnimeGenresAsync(Anime anime, List<Genre> genres);
+
+		Task<bool> AddAnimeGenresAsync(Anime anime, List<ManageAnimeGenreViewModel> model);
 	}
 }

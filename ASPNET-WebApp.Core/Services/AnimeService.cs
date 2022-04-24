@@ -39,7 +39,8 @@ namespace ASPNET_WebApp.Core.Services
 
         public async Task<Anime> GetAnimeById(string id)
         {
-            return await repo.GetByIdAsync<Anime>(id);
+            Anime anime = await repo.GetByIdAsync<Anime>(id);
+            return anime;
         }
 
         public async Task<AnimeEditViewModel> GetAnimeForEdit(string id)

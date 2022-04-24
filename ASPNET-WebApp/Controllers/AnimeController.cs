@@ -1,6 +1,8 @@
 ﻿using ASPNET_WebApp.Core.Constants;
 using ASPNET_WebApp.Core.Contracts;
 using ASPNET_WebApp.Core.Models;
+using ASPNET_WebApp.Infrastructure.Data;
+using ASPNET_WebApp.Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +12,15 @@ namespace ASPNET_WebApp.Controllers
     {
         private readonly IAnimeService animeService;
 
-        public AnimeController(IAnimeService _animeService)
+        private readonly IGenreService genreService;
+
+        private readonly IApplicationDbRepository repo;
+
+        public AnimeController(IAnimeService _animeService, IApplicationDbRepository repo, IGenreService genreService)
         {
             animeService = _animeService;
+            this.repo = repo;
+            this.genreService = genreService;
         }
 
         // GET: AnimeController
@@ -44,6 +52,71 @@ namespace ASPNET_WebApp.Controllers
             return View(animes);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> EditGenre(string id)
+        {
+            ViewBag.animeId = id;
+            var anime = await animeService.GetAnimeById(id);
+
+            if (anime == null)
+            {
+                ViewBag.ErrorMessage = $"Anime with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+            ViewBag.Name = anime.Name;
+            var model = new List<ManageAnimeGenreViewModel>();
+            List<Genre> genres = genreService.GetGenres().Result.ToList();
+
+            foreach (var genre in genres)
+            {
+                var manageAnimeGenreViewModel = new ManageAnimeGenreViewModel
+                {
+                    GenreId = genre.Id,
+                    GenreName = genre.Name
+                };
+
+                if (await genreService.HasGenre(anime, genre.Name))
+                {
+                    manageAnimeGenreViewModel.Selected = true;
+                }
+                else
+                {
+                    manageAnimeGenreViewModel.Selected = false;
+                }
+
+                model.Add(manageAnimeGenreViewModel);
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditGenre(List<ManageAnimeGenreViewModel> model, string id)
+        {
+            Anime anime = await animeService.GetAnimeById(id);
+            if (anime == null)
+            {
+                return View();
+            }
+
+            List<Genre> genres = genreService.GetGenres().Result.ToList();
+            var result = await genreService.RemoveAnimeGenresAsync(anime, genres);
+            if (!result)
+            {
+                ModelState.AddModelError("", "Cannot remove user existing roles");
+                return View(model);
+            }
+            result = await genreService.AddAnimeGenresAsync(anime, model);
+            if (!result)
+            {
+                ModelState.AddModelError("", "Cannot add selected roles to user");
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(ManageAnimes));
+        }
+
         // GET: AnimeController/Create
         public async Task<IActionResult> Create()
         {
@@ -59,16 +132,6 @@ namespace ASPNET_WebApp.Controllers
             //{
             //    return View(model);
             //}
-
-            if (Request.Form.Files.Count > 0)
-            {
-                IFormFile file = Request.Form.Files.FirstOrDefault();
-                using (var dataStream = new MemoryStream())
-                {
-                    await file.CopyToAsync(dataStream);
-                    model.Image = dataStream.ToArray();
-                }
-            }
 
             if (await animeService.CreateAnime(model))
             {
@@ -100,16 +163,6 @@ namespace ASPNET_WebApp.Controllers
             //{
             //    return View(model);
             //}
-
-            if (Request.Form.Files.Count > 0)
-            {
-                IFormFile file = Request.Form.Files.FirstOrDefault();
-                using (var dataStream = new MemoryStream())
-                {
-                    await file.CopyToAsync(dataStream);
-                    model.Image = dataStream.ToArray();
-                }
-            }
 
             if (await animeService.UpdateAnime(model))
             {
@@ -145,6 +198,6 @@ namespace ASPNET_WebApp.Controllers
             }
         }
 
-        
+
     }
 }

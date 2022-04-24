@@ -1,0 +1,34 @@
+﻿@using ASPNET_WebApp.Core.Models
+@model List<ManageAnimeGenreViewModel>
+@{
+    ViewData["Title"] = "Manage Genres";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="post">
+    <div class="card">
+        <div class="card-header">
+            <h2>Manage Anime Genres</h2>
+            Add/Remove Genres for Animes / @ViewBag.AnimeName.
+        </div>
+        <div class="card-body">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <div class="form-check m-1">
+                    <input type="hidden" asp-for="@Model[i].GenreId" />
+                    <input type="hidden" asp-for="@Model[i].GenreName" />
+                    <input asp-for="@Model[i].Selected" class="form-check-input" />
+                    <label class="form-check-label" asp-for="@Model[i].Selected">
+                        @Model[i].GenreName
+                    </label>
+                </div>
+            }
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <a asp-area="" asp-action="ManageAnimes" asp-controller="Anime" asp-route-id="@ViewBag.animeId">
+            <input  type="submit" value="Update" class="btn btn-primary" style="width:auto" />
+            </a>
+            <a asp-area="" asp-action="ManageAnimes" asp-controller="Anime" class="btn btn-primary" style="width:auto">Cancel</a>
+        </div>
+    </div>
+</form>

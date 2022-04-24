@@ -1,8 +1,97 @@
 ﻿@using ASPNET_WebApp.Infrastructure.Data
-@model Anime
+@model AnimeDetailsViewModel
 @{
 	ViewData["Title"] = "Anime Details";
 }
+
+<style>
+.rating {
+	display: inline-block;
+	position: relative;
+	height: 50px;
+	line-height: 50px;
+	font-size: 50px;
+}
+
+.rating label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	cursor: pointer;
+}
+
+.rating label:last-child {
+	position: static;
+}
+
+.rating label:nth-child(1) {
+	z-index: 10;
+}
+
+.rating label:nth-child(2) {
+	z-index: 9;
+}
+
+.rating label:nth-child(3) {
+	z-index: 8;
+}
+
+.rating label:nth-child(4) {
+	z-index: 7;
+}
+
+.rating label:nth-child(5) {
+	z-index: 6;
+}
+
+.rating label:nth-child(6) {
+	z-index: 5;
+}
+
+.rating label:nth-child(7) {
+	z-index: 4;
+}
+
+.rating label:nth-child(8) {
+	z-index: 3;
+}
+
+.rating label:nth-child(9) {
+	z-index: 2;
+}
+
+.rating label:nth-child(10) {
+	z-index: 1;
+}
+
+.rating label input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+}
+
+.rating label .icon {
+	float: left;
+	color: transparent;
+}
+
+.rating label:last-child .icon {
+	color: #000;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+	color: #09f;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+	color: #000;
+	text-shadow: 0 0 5px #09f;
+}
+</style>
+
 <!-- Breadcrumb Begin -->
 <div class="breadcrumb-option">
 	<div class="container">
@@ -42,16 +131,7 @@
 						<div class="anime__details__title">
 							<h3>@Model.Name</h3>
 						</div>
-						<div class="anime__details__rating">
-							<div class="rating">
-								<a href="#"><i class="fa fa-star"></i></a>
-								<a href="#"><i class="fa fa-star"></i></a>
-								<a href="#"><i class="fa fa-star"></i></a>
-								<a href="#"><i class="fa fa-star"></i></a>
-								<a href="#"><i class="fa fa-star-half-o"></i></a>
-							</div>
-							<span>@Model.Reviews.Count Votes</span>
-						</div>
+
 						<p>
 							@Model.Description
 						</p>
@@ -67,8 +147,8 @@
 								</div>
 								<div class="col-lg-6 col-md-6">
 									<ul>
-										<li><span>Genre:</span> Action, Adventure, Fantasy, Magic</li>
-										<li><span>Rating:</span> 8.5 / 161 times</li>
+										<li><span>Genre:</span> </li>
+										<li><span>Rating:</span> 8.5 / @Model.Reviews.Count times</li>
 										<li><span>Duration:</span> @Model.Duration</li>
 										<li><span>Episodes:</span> @Model.Episodes episodes</li>
 									</ul>
@@ -87,13 +167,98 @@
 					</div>
 					<form action="#">
 						<textarea placeholder="Your Comment"></textarea>
+						<div class="position-relative rating" style="text-align: left; margin-bottom: 20px;">
+							<label>
+								<input type="radio" name="stars" value="1" />
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="2" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="3" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="4" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="5" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="6" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="7" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="8" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="9" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+							<label>
+								<input type="radio" name="stars" value="10" />
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+								<span class="icon">★</span>
+							</label>
+						</div>
+						<br />
 						<button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
 					</form>
 				</div>
-
-				<br />
-
-				<div class="anime__details__review">
+				<div class="anime__details__review" style="margin-top: 80px;">
 					<div class="section-title">
 						<h5>Reviews</h5>
 					</div>
@@ -158,9 +323,22 @@
 						</div>
 					</div>
 				</div>
-				
+
 			</div>
 		</div>
 	</div>
 </section>
 <!-- Anime Section End -->
+
+<!-- Js Plugins -->
+<script src="~/js/jquery-3.3.1.min.js"></script>
+<script src="~/js/bootstrap.min.js"></script>
+<script src="~/js/player.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/mixitup.min.js"></script>
+<script src="~/js/jquery.slicknav.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<script src="~/js/main.js"></script>
+<script src="~/js/site.js"></script>
+<script src="~/plugins/toastr/toastr.min.js"></script>
+<partial name="_UserMessages" />

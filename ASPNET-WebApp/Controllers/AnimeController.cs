@@ -56,7 +56,7 @@ namespace ASPNET_WebApp.Controllers
         public async Task<IActionResult> EditGenre(string id)
         {
             ViewBag.animeId = id;
-            var anime = await animeService.GetAnimeById(id);
+            var anime = await animeService.GetAnimeForEdit(id);
 
             if (anime == null)
             {
@@ -94,7 +94,7 @@ namespace ASPNET_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditGenre(List<ManageAnimeGenreViewModel> model, string id)
         {
-            Anime anime = await animeService.GetAnimeById(id);
+            Anime anime = await animeService.GetAnimeForEdit(id);
             if (anime == null)
             {
                 return View();

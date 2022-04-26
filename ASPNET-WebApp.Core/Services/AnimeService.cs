@@ -3,6 +3,7 @@ using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data;
 using ASPNET_WebApp.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace ASPNET_WebApp.Core.Services
 {
@@ -43,16 +44,18 @@ namespace ASPNET_WebApp.Core.Services
             return anime;
         }
 
-        public async Task<AnimeEditViewModel> GetAnimeForEdit(string id)
+        public async Task<Anime> GetAnimeForEdit(string id)
         {
-            var anime = await repo.GetByIdAsync<Anime>(id);
+            var anime = dbContext.Animes.Where(x => x.Id == id)
+                .Include(x => x.Genres)
+                .FirstOrDefault();
 
             if (anime == null)
             {
                 throw new ArgumentNullException(nameof(anime));
             }
 
-            var foundAnime = new AnimeEditViewModel()
+            var foundAnime = new Anime()
             {
                 Id = anime.Id,
                 Name = anime.Name,
@@ -63,7 +66,7 @@ namespace ASPNET_WebApp.Core.Services
                 Description = anime.Description,
                 Studios = anime.Studios,
                 Producers = anime.Producers,
-                Genres = anime.Genres.ToList(),
+                Genres = anime.Genres,
                 Duration = anime.Duration,
                 Rating = anime.Rating
             };
@@ -135,6 +138,41 @@ namespace ASPNET_WebApp.Core.Services
             }
 
             return true;
+        }
+
+        public async Task<AnimeDetailsViewModel> GetAnimeDetailsById(string id)
+        {
+            var anime = await dbContext.Animes.Where(x => x.Id == id)
+                .Include(x => x.Genres)
+                .FirstOrDefaultAsync();
+
+            if (anime == null)
+            {
+                throw new ArgumentNullException(nameof(anime));
+            }
+            StringBuilder sb=new StringBuilder();
+            foreach (var genre in anime.Genres)
+            {
+                sb.Append($"{genre.Name}, ");
+            }
+            string genres=sb.ToString().TrimEnd();
+            var foundAnime = new AnimeDetailsViewModel()
+            {
+                Id = anime.Id,
+                Name = anime.Name,
+                Image = anime.Image,
+                Aired = anime.Aired,
+                Episodes = anime.Episodes,
+                Status = anime.Status,
+                Description = anime.Description,
+                Studios = anime.Studios,
+                Producers = anime.Producers,
+                Genres = genres,
+                Duration = anime.Duration,
+                Rating = anime.Rating
+            };
+
+            return foundAnime;
         }
     }
 }

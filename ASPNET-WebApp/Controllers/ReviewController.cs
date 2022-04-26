@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ASPNET_WebApp.Core.Contracts;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_WebApp.Controllers
 {
     public class ReviewController : BaseController
     {
-        public IActionResult Index()
+        private readonly IReviewService reviewService;
+        public ReviewController(IReviewService reviewService)
         {
-            return View();
+            this.reviewService = reviewService;
+        }
+
+        public async Task<IActionResult> ManageReviews()
+        {
+            var reviews = await reviewService.GetReviews();
+
+            return View(reviews);
         }
     }
 }

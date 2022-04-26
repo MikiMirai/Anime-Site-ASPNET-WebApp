@@ -63,6 +63,8 @@ namespace ASPNET_WebApp.Core.Services
         {
             var reviews = await dbContext.Reviews
                 .Include(x => x.Comments)
+                .Include(x => x.Anime)
+                .Include(x => x.User)
                 .ToListAsync();
 
             return reviews;

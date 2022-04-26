@@ -22,12 +22,12 @@
 	<link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
 	<link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
 	<link rel="stylesheet" href="~/css/plyr.css" type="text/css">
-	<link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
 	<link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
 	<link rel="stylesheet" href="~/css/style.css" type="text/css">
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/plugins/toastr/toastr.min.css">
+	<link rel="stylesheet" href="~/sass/style.scss">
 
 	@await RenderSectionAsync("Head", false)
 </head>
@@ -71,7 +71,7 @@
 									</ul>
 								</li>
 								<li>
-									<a href="#">Contacts</a>
+									<a asp-area="" asp-controller="Home" asp-action="Contact">Contacts</a>
 								</li>
 								<li>
 									<a href="#">Management <span class="arrow_carrot-down"></span></a>
@@ -184,12 +184,13 @@
 	<script src="~/js/jquery-3.3.1.min.js"></script>
 	<script src="~/js/bootstrap.min.js"></script>
 	<script src="~/js/player.js"></script>
-	<script src="~/js/jquery.nice-select.min.js"></script>
 	<script src="~/js/mixitup.min.js"></script>
 	<script src="~/js/jquery.slicknav.js"></script>
 	<script src="~/js/owl.carousel.min.js"></script>
 	<script src="~/js/main.js"></script>
 	<script src="~/js/site.js"></script>
+	<script src="~/js/map.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWTIlluowDL-X4HbYQt3aDw_oi2JP0Krc&sensor=false"></script>
 	<script src="~/plugins/toastr/toastr.min.js"></script>
 	<partial name="_UserMessages" />
 	@await RenderSectionAsync("Scripts", false)

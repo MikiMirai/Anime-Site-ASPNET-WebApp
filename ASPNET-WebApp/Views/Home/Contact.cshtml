@@ -1,0 +1,95 @@
+﻿@{
+	ViewData["Title"] = "Contact";
+}
+
+<style>
+	.contact-info-list {
+		padding-top: 55px;
+		padding-bottom: 20px;
+	}
+
+		.contact-info-list .cf-left {
+			width: 95px;
+			float: left;
+			font-size: 16px;
+			font-weight: 700;
+			color: #007bff;
+			margin-bottom: 30px;
+		}
+
+		.contact-info-list .cf-right {
+			color: white;
+			font-size: 15px;
+			padding-left: 100px;
+			margin-bottom: 30px;
+		}
+
+	.comment-title {
+		color: white;
+		margin-bottom: 45px;
+	}
+
+	.social-links a{
+		margin-right: 20px;
+	}
+
+	.login_form {
+    color: #ffffff;
+    font-weight: 700;
+    font-family: "Oswald", sans-serif;
+    margin-bottom: 30px;
+	}
+</style>
+<!-- Page section -->
+<section>
+	<div>
+		<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d64041.69143016963!2d10.71507771800253!3d59.8939224810348!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46416e61f267f039%3A0x7e92605fd3231e9a!2sOslo%2C%20Norway!5e0!3m2!1sen!2sbg!4v1650836350998!5m2!1sen!2sbg"
+				width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		<section class="login spad">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="login__form">
+							<h3>Leave us a reply</h3>
+							<form action="#">
+								<div class="input__item">
+									<input type="text" placeholder="Name">
+								</div>
+								<div class="input__item">
+									<input type="text" placeholder="Text">
+								</div>
+								<button type="submit" class="site-btn">Submit</button>
+							</form>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<h3 class="login_form">Contact us</h3>
+						<p class="text-white">This is the best site to review, fallow and talk about animes on the internet and I hope you have fun and share my site with your friends, family, your dog, your cat or grandma so she can enjoy it too.</p>
+						<div class="row">
+							<div class="col-md-9">
+								<ul class="contact-info-list">
+									<li><div class="cf-left">Address</div><div class="cf-right">1111 Random Street On A Random Island, AA 111</div></li>
+									<li><div class="cf-left">Phone</div><div class="cf-right">+12 345 678 9101</div></li>
+									<li><div class="cf-left">E-mail</div><div class="cf-right">mail@@mail.com</div></li>
+									<li><div class="cf-left">GitHub</div><div class="cf-right"><a href="https://github.com/MikiMirai/Anime-Site-ASPNET-WebApp">Miki's Anime Site</a></div></li>
+								</ul>
+							</div>
+						</div>
+						<div class="social-links">
+							<a href="#"><i class="fa fa-pinterest"></i></a>
+							<a href="#"><i class="fa fa-facebook"></i></a>
+							<a href="#"><i class="fa fa-twitter"></i></a>
+							<a href="#"><i class="fa fa-dribbble"></i></a>
+							<a href="#"><i class="fa fa-behance"></i></a>
+							<a href="#"><i class="fa fa-linkedin"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</section>
+<!-- Page section end -->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWTIlluowDL-X4HbYQt3aDw_oi2JP0Krc&sensor=false"></script>
+<script src="~/js/map.js"></script>

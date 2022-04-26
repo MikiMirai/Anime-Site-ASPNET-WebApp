@@ -1,6 +1,16 @@
 ﻿@using ASPNET_WebApp.Core.Models
 @model IEnumerable<ForumPostListViewModel>
 
+<style>
+	.custom-text-area {
+		background: transparent;
+		color: white;
+		border: transparent;
+		height: 95px;
+		width: 100%;
+	}
+</style>
+
 <br />
 <button type="button" class="nav-link btn btn-primary btn-block text-white">
 	<a asp-area="" asp-controller="Forum" asp-action="CreatePost">Post</a>
@@ -11,11 +21,11 @@
 	</div>
 	@foreach (var post in Model)
 	{
-		<div class="anime__review__item">
+		<div class="anime__review__item" style="height: fit-content;">
 			<div class="anime__review__item__text">
 				<h6>@post.UserName <span>@post.Date</span></h6>
 				<p>
-					@post.Description
+					<textarea name="Description" class="custom-text-area">@post.Description</textarea>
 				</p>
 			</div>
 		</div>

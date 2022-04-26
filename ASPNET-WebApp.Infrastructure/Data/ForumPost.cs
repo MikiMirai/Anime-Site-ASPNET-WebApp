@@ -4,18 +4,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASPNET_WebApp.Infrastructure.Data
 {
-    public class Review
+    public class ForumPost
     {
         [Key]
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
+        [Required]
         [ForeignKey(nameof(User))]
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
-
-        [ForeignKey(nameof(Anime))]
-        public string AnimeId { get; set; }
-        public Anime Anime { get; set; }
 
         [Required]
         [StringLength(30)]
@@ -24,11 +21,5 @@ namespace ASPNET_WebApp.Infrastructure.Data
         [Required]
         [StringLength(2000)]
         public string Description { get; set; }
-
-        [Required]
-        [Range(0.0, 10.0)]
-        public double Score { get; set; }
-
-        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
     }
 }

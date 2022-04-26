@@ -14,3 +14,45 @@
 @import "signup";
 @import "footer";
 @import "responsive";
+
+/*-----------------
+  Contact page
+--------------------*/
+.map {
+    height: 515px;
+    background: #ddd;
+    margin-bottom: 90px;
+}
+
+.contact-info-list {
+    padding-top: 55px;
+    padding-bottom: 20px;
+    list-style: none;
+
+    li {
+        margin-bottom: 30px;
+    }
+
+    .cf-left {
+        width: 95px;
+        float: left;
+        font-size: 16px;
+        font-weight: 700;
+        color: $color1;
+    }
+
+    .cf-right {
+        color: #878787;
+        font-size: 15px;
+        padding-left: 100px;
+    }
+}
+
+.social-links {
+    a {
+        color: #474747;
+        font-size: 16px;
+        margin-left: 10px;
+        margin-right: 20px;
+    }
+}

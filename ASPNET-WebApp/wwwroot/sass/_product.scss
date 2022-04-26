@@ -268,33 +268,6 @@
       margin-bottom: 0;
       margin-right: 16px;
     }
-
-    .nice-select {
-      float: none;
-      display: inline-block;
-      font-size: 15px;
-      color: #3d3d3d;
-      font-weight: 700;
-      border-radius: 0;
-      padding-left: 15px;
-      padding-right: 40px;
-      height: 32px;
-      line-height: 32px;
-
-        &:after {
-          border-bottom: 2px solid #111;
-          border-right: 2px solid #111;
-          height: 8px;
-          top: 47%;
-          width: 8px;
-          right: 15px;
-      }
-
-      .list {
-        margin-top: 0;
-        border-radius: 0;
-      }
-    }
   }
 }
 

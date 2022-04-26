@@ -18,7 +18,7 @@ namespace ASPNET_WebApp.Infrastructure.Data
         public Review Review { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         [Required]
         [StringLength(200)]

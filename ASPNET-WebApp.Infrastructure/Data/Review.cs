@@ -18,7 +18,7 @@ namespace ASPNET_WebApp.Infrastructure.Data
         public Anime Anime { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         [Required]
         [StringLength(2000)]

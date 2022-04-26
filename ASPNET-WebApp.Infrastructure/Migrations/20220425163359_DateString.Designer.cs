@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ASPNET_WebApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220424090740_Init")]
-    partial class Init
+    [Migration("20220425163359_DateString")]
+    partial class DateString
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -101,13 +101,29 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                     b.ToTable("Animes", "Identity");
                 });
 
+            modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.AnimeGenre", b =>
+                {
+                    b.Property<string>("AnimeId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("GenreId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AnimeId", "GenreId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("AnimesGenres", "Identity");
+                });
+
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Comment", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -223,8 +239,9 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -397,6 +414,25 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.AnimeGenre", b =>
+                {
+                    b.HasOne("ASPNET_WebApp.Infrastructure.Data.Anime", "Anime")
+                        .WithMany()
+                        .HasForeignKey("AnimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ASPNET_WebApp.Infrastructure.Data.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Anime");
+
+                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("ASPNET_WebApp.Infrastructure.Data.Comment", b =>

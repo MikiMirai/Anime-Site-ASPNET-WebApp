@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ASPNET_WebApp.Infrastructure.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -111,6 +111,33 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_AnimeGenre_Genres_GenresId",
                         column: x => x.GenresId,
+                        principalSchema: "Identity",
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AnimesGenres",
+                schema: "Identity",
+                columns: table => new
+                {
+                    AnimeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    GenreId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AnimesGenres", x => new { x.AnimeId, x.GenreId });
+                    table.ForeignKey(
+                        name: "FK_AnimesGenres_Animes_AnimeId",
+                        column: x => x.AnimeId,
+                        principalSchema: "Identity",
+                        principalTable: "Animes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AnimesGenres_Genres_GenreId",
+                        column: x => x.GenreId,
                         principalSchema: "Identity",
                         principalTable: "Genres",
                         principalColumn: "Id",
@@ -302,6 +329,12 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
                 column: "GenresId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AnimesGenres_GenreId",
+                schema: "Identity",
+                table: "AnimesGenres",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_ReviewId",
                 schema: "Identity",
                 table: "Comments",
@@ -376,6 +409,10 @@ namespace ASPNET_WebApp.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AnimeGenre",
+                schema: "Identity");
+
+            migrationBuilder.DropTable(
+                name: "AnimesGenres",
                 schema: "Identity");
 
             migrationBuilder.DropTable(

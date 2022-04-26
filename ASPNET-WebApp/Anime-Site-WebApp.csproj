@@ -33,7 +33,6 @@
     <None Include="wwwroot\js\bootstrap.min.js" />
     <None Include="wwwroot\js\demo.js" />
     <None Include="wwwroot\js\jquery-3.3.1.min.js" />
-    <None Include="wwwroot\js\jquery.nice-select.min.js" />
     <None Include="wwwroot\js\jquery.slicknav.js" />
     <None Include="wwwroot\js\main.js" />
     <None Include="wwwroot\js\mixitup.min.js" />

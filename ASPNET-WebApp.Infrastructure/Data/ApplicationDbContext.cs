@@ -14,9 +14,8 @@ namespace ASPNET_WebApp.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Genre>()
-                .HasMany(g => g.Animes)
-                .WithMany(a => a.Genres);
+            builder.Entity<AnimeGenre>()
+                .HasKey(x => new { x.AnimeId, x.GenreId });
 
             builder.Entity<Review>()
                 .HasOne(r => r.Anime)
@@ -76,7 +75,11 @@ namespace ASPNET_WebApp.Infrastructure.Data
 
         public DbSet<Anime> Animes { get; set; }
 
+        public DbSet<AnimeGenre> AnimesGenres { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<ForumPost> ForumPost { get; set; }
 
         public DbSet<Genre> Genres { get; set; }
 

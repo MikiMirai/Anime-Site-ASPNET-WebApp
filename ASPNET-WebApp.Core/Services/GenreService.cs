@@ -18,23 +18,21 @@ namespace ASPNET_WebApp.Core.Services
 
         public async Task<bool> AddAnimeGenresAsync(Anime anime, List<ManageAnimeGenreViewModel> model)
         {
-            anime.Genres = new List<Genre>();
             try
             {
+                var animeGenres = dbContext.Animes.Where(x => x.Id == anime.Id)
+                .Include(x => x.Genres)
+                .FirstOrDefault();
                 foreach (var genre in model)
                 {
                     if (genre.Selected)
                     {
-                        Genre tagFound = dbContext.Genres.FirstOrDefault(g => g.Id == genre.GenreId);
-                        anime.Genres.Add(tagFound);
+                        Genre tagFound = dbContext.Genres.FirstOrDefault(t => t.Id == genre.GenreId);
+                        animeGenres.Genres.Add(tagFound);
+                        await repo.SaveChangesAsync();
                     }
 
                 }
-
-                var animeChanged = await repo.GetByIdAsync<Anime>(anime.Id);
-                animeChanged.Genres = anime.Genres;
-
-                await repo.SaveChangesAsync();
                 return true;
             }
             catch (Exception)
@@ -49,8 +47,10 @@ namespace ASPNET_WebApp.Core.Services
             { 
                 Name = name
             };
+
             await dbContext.Genres.AddAsync(genre);
             await dbContext.SaveChangesAsync();
+
             return true;
         }
 

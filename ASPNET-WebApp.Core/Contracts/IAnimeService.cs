@@ -7,11 +7,13 @@ namespace ASPNET_WebApp.Core.Contracts
     {
         Task<IEnumerable<AnimeListViewModel>> GetAnimes();
 
-        Task<AnimeEditViewModel> GetAnimeForEdit(string id);
+        Task<Anime> GetAnimeForEdit(string id);
 
         Task<bool> UpdateAnime(AnimeEditViewModel model);
 
         Task<Anime> GetAnimeById(string id);
+
+        Task<AnimeDetailsViewModel> GetAnimeDetailsById(string id);
 
         Task<bool> CreateAnime(AnimeCreateViewModel model);
     }

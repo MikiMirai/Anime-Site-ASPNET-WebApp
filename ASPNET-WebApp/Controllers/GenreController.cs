@@ -50,7 +50,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddGenre()
+        public IActionResult AddGenre()
         {
             return View();
         }

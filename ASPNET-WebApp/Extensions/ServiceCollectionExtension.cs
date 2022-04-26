@@ -15,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IAnimeService, AnimeService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IForumPostService, ForumPostService>();
 
             return services;
         }

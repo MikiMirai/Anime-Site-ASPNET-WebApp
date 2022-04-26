@@ -1,0 +1,23 @@
+﻿@using ASPNET_WebApp.Core.Models
+@model IEnumerable<ForumPostListViewModel>
+
+<br />
+<button type="button" class="nav-link btn btn-primary btn-block text-white">
+	<a asp-area="" asp-controller="Forum" asp-action="CreatePost">Post</a>
+</button>
+<div class="anime__details__review" style="margin-top: 40px;">
+	<div class="section-title">
+		<h5>Forum Posts</h5>
+	</div>
+	@foreach (var post in Model)
+	{
+		<div class="anime__review__item">
+			<div class="anime__review__item__text">
+				<h6>@post.UserName <span>@post.Date</span></h6>
+				<p>
+					@post.Description
+				</p>
+			</div>
+		</div>
+	}
+</div>

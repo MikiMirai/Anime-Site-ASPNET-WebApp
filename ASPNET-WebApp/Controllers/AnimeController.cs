@@ -2,41 +2,75 @@
 using ASPNET_WebApp.Core.Contracts;
 using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data;
+using ASPNET_WebApp.Infrastructure.Data.Identity;
 using ASPNET_WebApp.Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Dynamic;
+using System.Security.Claims;
 
 namespace ASPNET_WebApp.Controllers
 {
     public class AnimeController : BaseController
     {
         private readonly IAnimeService animeService;
-
         private readonly IGenreService genreService;
-
+        private readonly IReviewService reviewService;
         private readonly IApplicationDbRepository repo;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public AnimeController(IAnimeService _animeService, IApplicationDbRepository repo, IGenreService genreService)
-        {
-            animeService = _animeService;
-            this.repo = repo;
-            this.genreService = genreService;
-        }
+		public AnimeController(IAnimeService _animeService, 
+            IApplicationDbRepository repo, 
+            IGenreService genreService, 
+            IReviewService reviewService, 
+            IHttpContextAccessor httpContextAccessor, 
+            UserManager<ApplicationUser> userManager)
+		{
+			animeService = _animeService;
+			this.repo = repo;
+			this.genreService = genreService;
+			this.reviewService = reviewService;
+			this.httpContextAccessor = httpContextAccessor;
+			this.userManager = userManager;
+		}
 
-        // GET: AnimeController
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        [HttpGet]
         public async Task<IActionResult> AnimeDetails(string id)
         {
-            var animes = await animeService.GetAnimeById(id);
+            dynamic mymodel = new ExpandoObject();
+            mymodel.Anime = await animeService.GetAnimeDetailsById(id);
+            mymodel.Reviews = await reviewService.GetReviewsByAnimeId(id);
 
-            return View(animes);
+            return View(mymodel);
         }
 
-        // GET
+        [HttpPost]
+        public async Task<IActionResult> AnimeDetails(Review model)
+        {
+            ClaimsPrincipal? userContext = httpContextAccessor.HttpContext?.User;
+            ApplicationUser? user = await userManager.GetUserAsync(userContext);
+
+            model.UserId = user.Id;
+
+            ViewBag.Description = model.Description;
+            ViewBag.Rating = model.Score;
+
+            if (await reviewService.AddReviewToAnime(model))
+            {
+                ViewData[MessageConstants.SuccessMessage] = "Успешен запис!";
+                return RedirectToAction(nameof(AnimeDetails), new { model.AnimeId });
+            }
+            else
+            {
+                ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
+            }
+
+            return RedirectToAction(nameof(AnimeDetails), new { model.AnimeId });
+        }
+
+        [HttpGet]
         public async Task<IActionResult> AllAnime()
         {
             var animes = await animeService.GetAnimes();
@@ -44,7 +78,7 @@ namespace ASPNET_WebApp.Controllers
             return View(animes);
         }
 
-        // GET: AnimeController/Details/5
+        [HttpGet]
         public async Task<IActionResult> ManageAnimes()
         {
             var animes = await animeService.GetAnimes();
@@ -117,13 +151,12 @@ namespace ASPNET_WebApp.Controllers
             return RedirectToAction(nameof(ManageAnimes));
         }
 
-        // GET: AnimeController/Create
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
-        // POST: AnimeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AnimeCreateViewModel model)
@@ -146,7 +179,7 @@ namespace ASPNET_WebApp.Controllers
             return View(model);
         }
 
-        // GET: AnimeController/Edit/5
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
             var model = await animeService.GetAnimeForEdit(id);
@@ -154,7 +187,6 @@ namespace ASPNET_WebApp.Controllers
             return View(model);
         }
 
-        // POST: AnimeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(AnimeEditViewModel model)
@@ -176,28 +208,5 @@ namespace ASPNET_WebApp.Controllers
 
             return View(model);
         }
-
-        // GET: AnimeController/Delete/5
-        public async Task<IActionResult> Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: AnimeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
     }
 }

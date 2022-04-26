@@ -1,7 +1,6 @@
 ﻿using ASPNET_WebApp.Core.Constants;
 using ASPNET_WebApp.Core.Contracts;
 using ASPNET_WebApp.Infrastructure.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_WebApp.Controllers
@@ -55,9 +54,8 @@ namespace ASPNET_WebApp.Controllers
             return View();
         }
 
-        // POST: GameController/Create
         [HttpPost]
-        //[Authorize(Roles = RoleConstants.Roles.Both)]
+        //[Authorize(Roles = RoleConstants.Roles.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddGenre(string name)
         {

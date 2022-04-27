@@ -5,7 +5,7 @@ namespace ASPNET_WebApp.Core.Models
 {
     public class AnimeCreateViewModel
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         [StringLength(AnimeNameMaxLength, MinimumLength = AnimeNameMinLength, ErrorMessage = MustBeBetween)]

@@ -13,6 +13,7 @@
         public const int DescriptionAnimeMaxLength = 2000;
         public const int DescriptionAnimeMinLength = 20;
 
+        public const int MaxLength2000 = 2000;
         public const int MaxLength200 = 200;
         public const int MinLength10 = 10;
     }

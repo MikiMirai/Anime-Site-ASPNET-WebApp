@@ -16,5 +16,7 @@ namespace ASPNET_WebApp.Core.Contracts
         Task<AnimeDetailsViewModel> GetAnimeDetailsById(string id);
 
         Task<bool> CreateAnime(AnimeCreateViewModel model);
+
+        Task<bool> AnimeAlreadyExistInCollection(string animeName);
     }
 }

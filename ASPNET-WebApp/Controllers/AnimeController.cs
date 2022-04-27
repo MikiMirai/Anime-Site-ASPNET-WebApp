@@ -4,7 +4,6 @@ using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data;
 using ASPNET_WebApp.Infrastructure.Data.Identity;
 using ASPNET_WebApp.Infrastructure.Data.Repositories;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;

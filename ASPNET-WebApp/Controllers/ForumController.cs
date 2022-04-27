@@ -1,5 +1,6 @@
 ﻿using ASPNET_WebApp.Core.Constants;
 using ASPNET_WebApp.Core.Contracts;
+using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data;
 using ASPNET_WebApp.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -31,10 +32,16 @@ namespace ASPNET_WebApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreatePost(ForumPost model)
+        public async Task<IActionResult> CreatePost(ForumPostCreateViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
             ClaimsPrincipal? userContext = httpContextAccessor.HttpContext?.User;
             ApplicationUser? user = await userManagerService.GetUserAsync(userContext);
+
 
             if (await forumPostService.AddForumPost(model, user.Id))
             {

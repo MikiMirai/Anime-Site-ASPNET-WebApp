@@ -10,9 +10,9 @@ namespace ASPNET_WebApp.Core.Services
 	{
         public readonly ApplicationDbContext dbContext;
         public readonly IApplicationDbRepository repo;
-        public GenreService(ApplicationDbContext _data, IApplicationDbRepository _repo)
+        public GenreService(ApplicationDbContext _dbContext, IApplicationDbRepository _repo)
         {
-            dbContext = _data;
+            dbContext = _dbContext;
             repo = _repo;
         }
 
@@ -31,7 +31,6 @@ namespace ASPNET_WebApp.Core.Services
                         animeGenres.Genres.Add(tagFound);
                         await repo.SaveChangesAsync();
                     }
-
                 }
                 return true;
             }
@@ -41,11 +40,16 @@ namespace ASPNET_WebApp.Core.Services
             }
         }
 
-        public async Task<bool> CreateGenre(string name)
+        public async Task<bool> CreateGenre(GenreCreateViewModel model)
         {
+            if (await GenreAlreadyExistInCollection(model.Name))
+            {
+                return false;
+            }
+
             var genre = new Genre()
             { 
-                Name = name
+                Name = model.Name,
             };
 
             await dbContext.Genres.AddAsync(genre);
@@ -54,7 +58,7 @@ namespace ASPNET_WebApp.Core.Services
             return true;
         }
 
-        public async Task<Genre> GetGenreForEdit(string id)
+        public async Task<GenreEditViewModel> GetGenreForEdit(string id)
         {
             var genre = await repo.GetByIdAsync<Genre>(id);
 
@@ -63,7 +67,7 @@ namespace ASPNET_WebApp.Core.Services
                 throw new ArgumentNullException(nameof(genre));
             }
 
-            var foundGenre = new Genre()
+            var foundGenre = new GenreEditViewModel()
             {
                 Id = genre.Id,
                 Name = genre.Name
@@ -111,7 +115,7 @@ namespace ASPNET_WebApp.Core.Services
             }
         }
 
-        public async Task<bool> UpdateGenre(Genre model)
+        public async Task<bool> UpdateGenre(GenreEditViewModel model)
 		{
             bool result = false;
 
@@ -127,5 +131,17 @@ namespace ASPNET_WebApp.Core.Services
 
             return result;
         }
-	}
+
+        public async Task<bool> GenreAlreadyExistInCollection(string genreName)
+        {
+            var genre = await dbContext.Genres.FirstOrDefaultAsync(x => x.Name == genreName);
+
+            if (genre == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
 }

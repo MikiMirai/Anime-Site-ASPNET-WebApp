@@ -1,5 +1,6 @@
 ﻿using ASPNET_WebApp.Core.Constants;
 using ASPNET_WebApp.Core.Contracts;
+using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace ASPNET_WebApp.Controllers
             return View(genres);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
             var model = await genreService.GetGenreForEdit(id);
@@ -29,7 +31,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Genre model)
+        public async Task<IActionResult> Edit(GenreEditViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -39,6 +41,7 @@ namespace ASPNET_WebApp.Controllers
             if (await genreService.UpdateGenre(model))
             {
                 ViewData[MessageConstants.SuccessMessage] = "Успешен запис!";
+                return RedirectToAction(nameof(ManageGenres));
             }
             else
             {
@@ -57,10 +60,14 @@ namespace ASPNET_WebApp.Controllers
         [HttpPost]
         //[Authorize(Roles = RoleConstants.Roles.Admin)]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddGenre(string name)
+        public async Task<IActionResult> AddGenre(GenreCreateViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-            if (await genreService.CreateGenre(name))
+            if (await genreService.CreateGenre(model))
             {
                 ViewData[MessageConstants.SuccessMessage] = "Успешен запис!";
                 return RedirectToAction(nameof(ManageGenres));
@@ -70,7 +77,7 @@ namespace ASPNET_WebApp.Controllers
                 ViewData[MessageConstants.ErrorMessage] = "Възникна грешка!";
             }
 
-            return View();
+            return View(model);
         }
     }
 }

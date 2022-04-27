@@ -4,28 +4,8 @@
 	ViewData["Title"] = "Anime Details";
 }
 
-
-
-	
-
-
-<!-- Breadcrumb Begin -->
-<div class="breadcrumb-option">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="breadcrumb__links">
-					<a asp-area="" asp-controller="Home" asp-action="Categories"><i class="fa fa-home"></i> Home</a>
-					<a asp-area="" asp-controller="Home" asp-action="Categories">Categories</a>
-					<span>Romance</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Breadcrumb End -->
 <!-- Anime Section Begin -->
-<section class="anime-details spad">
+<section style="padding-top: 60px; padding-bottom: 100px;">
 	<div class="container">
 		<div class="anime__details__content">
 			<div class="row">
@@ -65,7 +45,7 @@
 								<div class="col-lg-6 col-md-6">
 									<ul>
 										<li><span>Genre:</span> @Model.Anime.Genres </li>
-										<li><span>Rating:</span> @Model.Anime.Score / @Model.Anime.Reviews.Count times</li>
+										<li><span>Rating:</span> @Model.Anime.Score / @Model.Anime.ReviewsCount times</li>
 										<li><span>Duration:</span> @Model.Anime.Duration</li>
 										<li><span>Episodes:</span> @Model.Anime.Episodes episodes</li>
 									</ul>
@@ -90,23 +70,20 @@
 						<div class="section-title" style="margin-top: 10px; margin-bottom: 10px;">
 							<h5>Your Rating</h5>
 						</div>
-						@*<textarea value="@ViewBag.Rating" name="Rating" placeholder="Write a number from 1 to 10" style="margin-bottom: 10px;"></textarea>*@
-						<form action="#">
-							<label for="lang">Rating</label>
-							<select value="@ViewBag.Rating" name="Rating" id="lang" size="8">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-							</select>
-							<input type="submit" value="Submit"/>
-						</form>
+						<label for="lang">Score</label>
+						<select name="Score" id="lang" size="8">
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+						</select>
+						<input type="submit" value="Submit" />
 					</form>
 				</div>
 				<div class="anime__details__review" style="margin-top: 80px;">
@@ -117,9 +94,12 @@
 					{
 						<div class="anime__review__item">
 							<div class="anime__review__item__text">
-								<h6>@review.UserName <span>@review.Date</span></h6>
+								<h6>@review.UserName <span>@review.Date</span> <span class="float-right text-white text-bold">Score: @review.Score</span></h6>
 								<p>
 									@review.Description
+								</p>
+								<p style="margin-top: 15px;">
+									<a asp-area="" asp-action="ReviewComments" asp-controller="Comment" asp-route-id="@review.Id" class="btn btn-block btn-outline-info btn-xs">Comments: @review.CommentsCount</a>
 								</p>
 							</div>
 						</div>
@@ -141,3 +121,7 @@
 <script src="~/js/site.js"></script>
 <script src="~/plugins/toastr/toastr.min.js"></script>
 <partial name="_UserMessages" />
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

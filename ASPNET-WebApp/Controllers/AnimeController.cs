@@ -55,7 +55,8 @@ namespace ASPNET_WebApp.Controllers
             model.UserId = user.Id;
 
             ViewBag.Description = model.Description;
-            ViewBag.Rating = model.Score;
+            double number = Convert.ToDouble(Request.Form["Score"]);
+            model.Score = number;
 
             if (await reviewService.AddReviewToAnime(model))
             {
@@ -141,6 +142,7 @@ namespace ASPNET_WebApp.Controllers
                 ModelState.AddModelError("", "Cannot remove user existing roles");
                 return View(model);
             }
+
             result = await genreService.AddAnimeGenresAsync(anime, model);
             if (!result)
             {
@@ -161,10 +163,10 @@ namespace ASPNET_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AnimeCreateViewModel model)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(model);
-            //}
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
             if (await animeService.CreateAnime(model))
             {

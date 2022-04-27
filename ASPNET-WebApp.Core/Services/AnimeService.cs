@@ -33,6 +33,7 @@ namespace ASPNET_WebApp.Core.Services
                 Status = anime.Status,
                 ReviewCount = anime.Reviews.Count,
             })
+                .OrderByDescending(a => a.Name)
                 .ToListAsync();
 
             return animeView;
@@ -40,7 +41,11 @@ namespace ASPNET_WebApp.Core.Services
 
         public async Task<Anime> GetAnimeById(string id)
         {
-            Anime anime = await repo.GetByIdAsync<Anime>(id);
+            var anime = await dbContext.Animes
+                .Where(x => x.Id == id)
+                .Include(x => x.Genres)
+                .FirstOrDefaultAsync();
+
             return anime;
         }
 
@@ -143,6 +148,7 @@ namespace ASPNET_WebApp.Core.Services
         public async Task<AnimeDetailsViewModel> GetAnimeDetailsById(string id)
         {
             var anime = await dbContext.Animes.Where(x => x.Id == id)
+                .Include(x => x.Reviews)
                 .Include(x => x.Genres)
                 .FirstOrDefaultAsync();
 
@@ -150,11 +156,14 @@ namespace ASPNET_WebApp.Core.Services
             {
                 throw new ArgumentNullException(nameof(anime));
             }
+
             StringBuilder sb=new StringBuilder();
+
             foreach (var genre in anime.Genres)
             {
                 sb.Append($"{genre.Name}, ");
             }
+
             string genres=sb.ToString().TrimEnd();
             var foundAnime = new AnimeDetailsViewModel()
             {
@@ -165,11 +174,13 @@ namespace ASPNET_WebApp.Core.Services
                 Episodes = anime.Episodes,
                 Status = anime.Status,
                 Description = anime.Description,
+                Score = anime.Score,
                 Studios = anime.Studios,
                 Producers = anime.Producers,
                 Genres = genres,
                 Duration = anime.Duration,
-                Rating = anime.Rating
+                Rating = anime.Rating,
+                ReviewsCount = anime.Reviews.Count,
             };
 
             return foundAnime;

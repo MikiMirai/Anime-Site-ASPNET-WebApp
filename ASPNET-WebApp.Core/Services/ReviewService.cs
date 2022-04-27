@@ -26,7 +26,7 @@ namespace ASPNET_WebApp.Core.Services
             }
             try
             {
-                Review review = new Review()
+                Review review = new()
                 {
                     AnimeId = anime.Id,
                     Description = model.Description,
@@ -44,7 +44,7 @@ namespace ASPNET_WebApp.Core.Services
                     score += rating.Score;
                 }
 
-                score = score / anime.Reviews.Count();
+                score /= anime.Reviews.Count;
 
                 anime.Score = score;
 
@@ -70,7 +70,26 @@ namespace ASPNET_WebApp.Core.Services
             return reviews;
         }
 
-		public async Task<IEnumerable<AnimeReviewsListViewModel>> GetReviewsByAnimeId(string id)
+        public async Task<Review> GetReviewById(string id)
+        {
+            try
+            {
+                var review = await dbContext.Reviews
+                .Include(x => x.Comments)
+                .Include(x => x.User)
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
+                return review;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<AnimeReviewsListViewModel>> GetReviewsByAnimeId(string id)
 		{
             var reviews = await dbContext.Reviews
                 .Include(x => x.User)
@@ -82,7 +101,7 @@ namespace ASPNET_WebApp.Core.Services
                     Date = x.Date,
                     Description = x.Description,
                     Score = x.Score,
-                    CommentsCount = x.Comments.Count()
+                    CommentsCount = x.Comments.Count
                 }).ToListAsync();
 
             return reviews;

@@ -10,12 +10,13 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAnimeService, AnimeService>();
+            services.AddScoped<IApplicationDbRepository, ApplicationDbRepository>();
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IForumPostService, ForumPostService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IReviewService, ReviewService>();
-            services.AddScoped<IForumPostService, ForumPostService>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

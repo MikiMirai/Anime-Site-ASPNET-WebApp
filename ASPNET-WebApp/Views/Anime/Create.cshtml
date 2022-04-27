@@ -2,7 +2,6 @@
 @model AnimeCreateViewModel
 @{
 	ViewData["Title"] = "Create Anime";
-	var genres = (List<SelectListItem>)ViewBag.Genres;
 }
 
 <div class="text-white card-outline card-primary">
@@ -12,54 +11,54 @@
 			<hr />
 			<div class="form-group">
 				<label asp-for="Name"></label>
+				<span asp-validation-for="Name" class="text-danger text-red"></span>
 				<input asp-for="Name" class="form-control" />
-				<span asp-validation-for="Name" class="text-danger"></span>
 			</div>
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div asp-validation-summary="ModelOnly" class="text-danger text-red"></div>
 			<div class="form-floating">
 				<label asp-for="Image" class="form-label"></label>
+				<span asp-validation-for="Image" class="text-danger text-red"></span>
 				<input asp-for="Image" class="form-control" aria-required="true" />
-				<span asp-validation-for="Image" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Aired"></label>
+				<span asp-validation-for="Aired" class="text-danger text-red"></span>
 				<input asp-for="Aired" class="form-control" />
-				<span asp-validation-for="Aired" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Episodes"></label>
+				<span asp-validation-for="Episodes" class="text-danger text-red"></span>
 				<input asp-for="Episodes" class="form-control" />
-				<span asp-validation-for="Episodes" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Status"></label>
+				<span asp-validation-for="Status" class="text-danger text-red"></span>
 				<input asp-for="Status" class="form-control" />
-				<span asp-validation-for="Status" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Description"></label>
+				<span asp-validation-for="Description" class="text-danger text-red"></span>
 				<input asp-for="Description" class="form-control" />
-				<span asp-validation-for="Description" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Studios"></label>
+				<span asp-validation-for="Studios" class="text-danger text-red"></span>
 				<input asp-for="Studios" class="form-control" />
-				<span asp-validation-for="Studios" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Producers"></label>
+				<span asp-validation-for="Producers" class="text-danger text-red"></span>
 				<input asp-for="Producers" class="form-control" />
-				<span asp-validation-for="Producers" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Duration"></label>
+				<span asp-validation-for="Duration" class="text-danger text-red"></span>
 				<input asp-for="Duration" class="form-control" />
-				<span asp-validation-for="Duration" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label asp-for="Rating"></label>
+				<span asp-validation-for="Rating" class="text-danger text-red"></span>
 				<input asp-for="Rating" class="form-control" />
-				<span asp-validation-for="Rating" class="text-danger"></span>
 			</div>
 			<br />
 			<button id="animeSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Create Anime</button>

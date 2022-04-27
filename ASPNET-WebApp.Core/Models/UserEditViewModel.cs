@@ -7,7 +7,8 @@ namespace ASPNET_WebApp.Core.Models
         public string UserId { get; set; }
 
         [Required]
-        [Display(Name = "Username")]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "{0} must be at least {2} and at max {1} characters long.")]
+        [Display(Name = "UserName")]
         public string? UserName { get; set; }
     }
 }

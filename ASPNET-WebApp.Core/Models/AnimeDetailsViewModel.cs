@@ -1,9 +1,4 @@
 ﻿using ASPNET_WebApp.Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ASPNET_WebApp.Core.Models
 {
@@ -35,6 +30,6 @@ namespace ASPNET_WebApp.Core.Models
 
         public string Genres { get; set; }
 
-        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public int ReviewsCount { get; set; }
     }
 }

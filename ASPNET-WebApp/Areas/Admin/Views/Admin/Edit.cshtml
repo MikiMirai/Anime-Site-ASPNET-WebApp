@@ -9,7 +9,7 @@
         <form id="edit" method="post">
             <input type="hidden" name="Id" value="@Model.UserId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
+            <div class="form-floating text-white">
                 <label asp-for="UserName" class="form-label"></label>
                 <input asp-for="UserName" class="form-control" aria-required="true" />
                 <span asp-validation-for="UserName" class="text-danger"></span>

@@ -39,6 +39,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
             return View(users);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Roles(string id)
         {
             var user = await service.GetUserById(id);
@@ -111,17 +112,17 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
         //        await roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
         //    }
 
-        //    return RedirectToAction(nameof(ManageUsers));
+        //    return Ok();
         //}
 
         //public async Task<IActionResult> CreateRole()
         //{
         //    await roleManager.CreateAsync(new IdentityRole()
         //    {
-        //        Name = "Editor"
+        //        Name = "Admin"
         //    });
 
-        //    return RedirectToAction(nameof(ManageUsers));
+        //    return Ok();
         //}
     }
 }

@@ -1,0 +1,65 @@
+﻿@using ASPNET_WebApp.Infrastructure.Data
+@model dynamic
+
+<style>
+	.custom-text-area {
+		background: transparent;
+		color: white;
+		border: transparent;
+		height: 54px;
+		width: 100%;
+	}
+</style>
+
+<br />
+
+<div class="section-title">
+	<h4>Review</h4>
+</div>
+
+<div class="anime__review__item" style="height: fit-content;">
+	<div class="anime__review__item__text">
+		<h6>@Model.Review.User.UserName <span>@Model.Review.Date</span> <span class="float-right text-white text-bold">Score: @Model.Review.Score</span></h6>
+		<p>
+			<textarea name="Description" class="custom-text-area" disabled>@Model.Review.Description</textarea>
+		</p>
+	</div>
+</div>
+
+<br />
+<div>
+	<div class="section-title">
+		<h5>Write a Comment</h5>
+	</div>
+	<form id="createComment" enctype="multipart/form-data" method="post">
+		<hr />
+		<div class="form-group">
+			<div class="form-group">
+				<input value="@Model.Review.Id" name="ReviewId" hidden class="form-control" />
+			</div>
+			<textarea value="@ViewBag.Description" name="Description" placeholder="Your Comment Text" rows="3" cols="126" style="width: 100%;"></textarea>
+		</div>
+		<br />
+		<button type="submit" value="Submit" class="w-100 btn btn-lg btn-primary">Submit</button>
+	</form>
+</div>
+<div class="anime__details__review" style="margin-top: 40px;">
+	<div class="section-title">
+		<h5>Review Comments</h5>
+	</div>
+	@foreach (var comment in Model.Comments)
+	{
+		<div class="anime__review__item" style="height: fit-content;">
+			<div class="anime__review__item__text">
+				<h6>@comment.User.UserName <span>@comment.Date</span></h6>
+				<p>
+					<textarea name="Description" class="custom-text-area" disabled>@comment.Description</textarea>
+				</p>
+			</div>
+		</div>
+	}
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

@@ -8,7 +8,7 @@ using System.Security.Claims;
 
 namespace ASPNET_WebApp.Controllers
 {
-    public class ForumController : Controller
+    public class ForumController : BaseController
     {
         private readonly IUserService userService;
         private readonly UserManager<ApplicationUser> userManagerService;

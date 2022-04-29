@@ -11,6 +11,6 @@ namespace ASPNET_WebApp.Core.Contracts
 
         Task<Review> GetReviewById(string id);
 
-        Task<IEnumerable<AnimeReviewsListViewModel>> GetReviewsByAnimeId(string id);
+        Task<List<AnimeReviewsListViewModel>> GetReviewsByAnimeId(string id);
     }
 }

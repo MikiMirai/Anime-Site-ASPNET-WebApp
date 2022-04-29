@@ -5,7 +5,7 @@ namespace ASPNET_WebApp.Core.Contracts
 {
     public interface IForumPostService
     {
-        Task<bool> AddForumPost(ForumPostCreateViewModel model, string userId);
+        Task<bool> CreateForumPost(ForumPostCreateViewModel model, string userId);
 
         Task<IEnumerable<ForumPostListViewModel>> GetPosts();
     }

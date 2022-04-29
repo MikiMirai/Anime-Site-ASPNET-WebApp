@@ -70,25 +70,26 @@
 								<li>
 									<a asp-area="" asp-controller="Home" asp-action="Contact">Contacts</a>
 								</li>
-								<li>
-									<a href="#">Management <span class="arrow_carrot-down"></span></a>
-									<ul class="dropdown">
-										<li>
-											@*@if (User.IsInRole("Admin"))
-											{*@
+								@if (User.IsInRole("Admin"))
+								{
+									<li>
+										<a href="#">Management <span class="arrow_carrot-down"></span></a>
+										<ul class="dropdown">
+											<li>
 												<a asp-area="Admin" asp-controller="Admin" asp-action="ManageUsers">Manage Users</a>
-											@*}*@
-										</li>
-										<li>
-											<a asp-area="" asp-controller="Anime" asp-action="ManageAnimes">Manage Animes</a>
-										</li>
-										<li>
-											<a asp-area="" asp-controller="Genre" asp-action="ManageGenres">Manage Genres</a>
-										</li>
-										<li>
-											<a asp-area="" asp-controller="Review" asp-action="ManageReviews">Manage Reviews</a>
-										</li>
-									</ul>
+											</li>
+											<li>
+												<a asp-area="" asp-controller="Anime" asp-action="ManageAnimes">Manage Animes</a>
+											</li>
+											<li>
+												<a asp-area="" asp-controller="Genre" asp-action="ManageGenres">Manage Genres</a>
+											</li>
+											<li>
+												<a asp-area="" asp-controller="Review" asp-action="ManageReviews">Manage Reviews</a>
+											</li>
+										</ul>
+									</li>
+								}
 								<li>
 										@*<div class="search-model">
 											<div class="h-100 d-flex align-items-center justify-content-center">

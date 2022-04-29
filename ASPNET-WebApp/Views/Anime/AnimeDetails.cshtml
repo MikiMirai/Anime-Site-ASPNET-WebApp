@@ -129,7 +129,7 @@
 						<div class="form-group">
 							<input value="@Model.Anime.Id" name="AnimeId" hidden class="form-control" />
 						</div>
-						<textarea value="@ViewBag.Description" name="Description" placeholder="Your Review Text" style="margin-bottom: 10px; background: #1d1e39; color: white;"></textarea>
+						<textarea value="@ViewBag.Description" name="Description" placeholder="Your Review Text" style="border-radius: 20px;margin-bottom: 10px; background: #1d1e39; color: white;"></textarea>
 						<div class="section-title" style="margin-top: 10px; margin-bottom: 10px;">
 							<h5>Your Rating</h5>
 						</div>
@@ -164,7 +164,7 @@
 					</div>
 					@foreach (var review in Model.Reviews)
 					{
-						<div class="anime__review__item">
+						<div class="border-radius-20 anime__review__item">
 							<div class="anime__review__item__text">
 								<h6>@review.UserName <span>@review.Date</span> <span class="float-right text-white text-bold">Score: @review.Score</span></h6>
 								<p>

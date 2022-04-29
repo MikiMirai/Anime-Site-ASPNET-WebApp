@@ -659,7 +659,7 @@ ol {
 .product__item__pic {
     height: 325px;
     position: relative;
-    border-radius: 5px;
+    border-radius: 24px;
 }
 
     .product__item__pic .ep {
@@ -970,7 +970,7 @@ ol {
 
 .anime__details__pic {
     height: 440px;
-    border-radius: 5px;
+    border-radius: 24px;
     position: relative;
 }
 
@@ -1136,7 +1136,7 @@ ol {
     overflow: hidden;
     background: #1d1e39;
     padding: 18px 30px 16px 20px;
-    border-radius: 10px;
+    border-radius: 24px;
 }
 
     .anime__review__item__text h6 {
@@ -1164,7 +1164,7 @@ ol {
     padding-top: 12px;
     height: 110px;
     border: none;
-    border-radius: 5px;
+    border-radius: 24px;
     resize: none;
     margin-bottom: 24px;
 }

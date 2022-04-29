@@ -91,21 +91,21 @@
 									</li>
 								}
 								<li>
-										@*<div class="search-model">
-											<div class="h-100 d-flex align-items-center justify-content-center">
-											<div class="search-close-switch"><i class="icon_close"></i></div>
-											<form class="search-model-form">
-											<input type="text" id="search-input" placeholder="Search here.....">
-											</form>
-											</div>
-											</div>
-											<a href="#" class="search-switch"><span class="icon_search"></span></a>*@
-										@*@if (User.Identity.IsAuthenticated)
+									@*<div class="search-model">
+										<div class="h-100 d-flex align-items-center justify-content-center">
+										<div class="search-close-switch"><i class="icon_close"></i></div>
+										<form class="search-model-form">
+										<input type="text" id="search-input" placeholder="Search here.....">
+										</form>
+										</div>
+										</div>
+										<a href="#" class="search-switch"><span class="icon_search"></span></a>*@
+									@*@if (User.Identity.IsAuthenticated)
 										{
-											@if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
-											{
-											<img style="width: 40px; height: 40px; object-fit: cover; border-radius: 30px;" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
-											}
+										@if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+										{
+										<img style="width: 40px; height: 40px; object-fit: cover; border-radius: 30px;" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+										}
 										}*@
 								</li>
 								<li>
@@ -115,12 +115,12 @@
 									<i class="fas fa-door-open text-white"></i>
 								</li>
 								<li>
-										@if (User.Identity.IsAuthenticated)
-										{
+									@if (User.Identity.IsAuthenticated)
+									{
 										<form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
 											<button type="submit" class="nav-link btn btn-primary btn-block">Log Out</button>
 										</form>
-										}
+									}
 								</li>
 							</ul>
 						</nav>
@@ -157,13 +157,13 @@
 								<a asp-area="" asp-controller="Home" asp-action="Index">Homepage</a>
 							</li>
 							<li>
-								<a asp-area="" asp-controller="Home" asp-action="AllAnime">All Animes</a>
+								<a asp-area="" asp-controller="Anime" asp-action="AllAnime">All Animes</a>
 							</li>
 							<li>
-								<a asp-area="" asp-controller="Home" asp-action="AnimeDetails">AnimeDetails</a>
+								<a asp-area="" asp-controller="Forum" asp-action="ForumPosts">Forum</a>
 							</li>
 							<li>
-								<a href="#">Contacts</a>
+								<a asp-area="" asp-controller="Home" asp-action="Contact">Contacts</a>
 							</li>
 						</ul>
 					</div>

@@ -1,6 +1,25 @@
 ﻿@using ASPNET_WebApp.Infrastructure.Data
 @model ForumPost
 
+<style>
+	.custom-text-area {
+		background: transparent;
+		color: white;
+		border: transparent;
+		height: 95px;
+		width: 100%;
+		resize: none;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	textarea::placeholder {
+		color: white;
+	}
+</style>
+
 <div class="text-white card-outline card-primary">
 	<div class="card-body">
 		<form id="create" enctype="multipart/form-data" method="post">
@@ -11,7 +30,7 @@
 					<h5>Description</h5>
 				</div>
 				<span asp-validation-for="@Model.Description" class="text-danger"></span>
-				<textarea id="Description" name="Description" placeholder="Your text here" rows="3" cols="126" style="width: 100%;"></textarea>
+				<textarea class="custom-text-area" id="Description" name="Description" placeholder="Your text here" rows="3" cols="126" style="width: 100%; background: #1d1e39; color: white;"></textarea>
 			</div>
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<br />

@@ -2,13 +2,21 @@
 @model dynamic
 
 <style>
-	.custom-text-area textarea{
+	.custom-text-area {
 		background: transparent;
 		color: white;
 		border: transparent;
-		height: 54px;
+		height: 95px;
 		width: 100%;
 		resize: none;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	textarea::placeholder {
+		color: white;
 	}
 </style>
 
@@ -18,7 +26,7 @@
 	<h4>Review</h4>
 </div>
 
-<div class="anime__review__item" style="height: fit-content;">
+<div class="border-radius-20 anime__review__item" style="height: fit-content;">
 	<div class="anime__review__item__text">
 		<h6>@Model.Review.User.UserName <span>@Model.Review.Date</span> <span class="float-right text-white text-bold">Score: @Model.Review.Score</span></h6>
 		<p>
@@ -28,29 +36,29 @@
 </div>
 
 <br />
-<div>
+<div style="margin-top:40px;">
 	<div class="section-title">
 		<h5>Write a Comment</h5>
 	</div>
 	<form id="createComment" enctype="multipart/form-data" method="post">
 		<hr />
-		<div class="form-group">
+		<div class="border-radius-20 form-group">
 			<div class="form-group">
 				<input value="@Model.Review.Id" name="ReviewId" hidden class="form-control" />
 			</div>
-			<textarea value="@ViewBag.Description" name="Description" placeholder="Your Comment Text" rows="3" cols="126" style="width: 100%;"></textarea>
+			<textarea value="@ViewBag.Description" name="Description" placeholder="Your Comment Text" rows="3" cols="126" class="custom-text-area" style="border-radius: 10px; margin-bottom: 0px; background: #1d1e39; color: white; width: 100%;"></textarea>
 		</div>
 		<br />
 		<button type="submit" value="Submit" class="w-100 btn btn-lg btn-primary">Submit</button>
 	</form>
 </div>
-<div class="anime__details__review" style="margin-top: 40px;">
-	<div class="section-title">
+<div class="anime__details__review" style="margin-top:80px;">
+	<div class="section-title" style="margin-top:20px;">
 		<h5>Review Comments</h5>
 	</div>
 	@foreach (var comment in Model.Comments)
 	{
-		<div class="anime__review__item" style="height: fit-content;">
+		<div class="border-radius-20 anime__review__item" style="height: fit-content;">
 			<div class="anime__review__item__text">
 				<h6>@comment.User.UserName <span>@comment.Date</span></h6>
 				<p>

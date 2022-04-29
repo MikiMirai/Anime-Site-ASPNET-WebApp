@@ -22,11 +22,11 @@
 	</div>
 	@foreach (var post in Model)
 	{
-		<div class="anime__review__item" style="height: fit-content;">
+		<div class="border-radius-20 anime__review__item" style="height: fit-content;">
 			<div class="anime__review__item__text">
 				<h6>@post.UserName <span>@post.Date</span></h6>
 				<p>
-					<textarea name="Description" class="custom-text-area">@post.Description</textarea>
+					<textarea name="Description" class="custom-text-area" disabled>@post.Description</textarea>
 				</p>
 			</div>
 		</div>

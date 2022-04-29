@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anime-Site-WebApp.Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anime-Site-WebApp.API", "ASPNET-WebApp.API\Anime-Site-WebApp.API.csproj", "{805FB36B-C8D9-438F-A0FE-75C95E08F0CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anime-Site-WebApp-Tests", "Anime-Site-WebApp-Tests\Anime-Site-WebApp-Tests.csproj", "{D901442F-6F74-4019-9BA0-FB4114D6FB90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anime-Site-WebApp.Tests", "Anime-Site-WebApp-Tests\Anime-Site-WebApp.Tests.csproj", "{D901442F-6F74-4019-9BA0-FB4114D6FB90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,5 @@
 ﻿using ASPNET_WebApp.Core.Constants;
+using ASPNET_WebApp.Core.Contracts;
 using ASPNET_WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -8,15 +9,19 @@ namespace ASPNET_WebApp.Controllers
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IAnimeService animeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IAnimeService animeService)
         {
             _logger = logger;
+            this.animeService = animeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View(nameof(Index));
+            var animes = await animeService.GetAnimesTrending();
+
+            return View(animes);
         }
 
         public IActionResult Privacy()

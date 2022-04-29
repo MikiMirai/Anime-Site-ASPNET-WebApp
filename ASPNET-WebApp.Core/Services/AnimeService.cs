@@ -66,6 +66,11 @@ namespace ASPNET_WebApp.Core.Services
                 .Include(x => x.Genres)
                 .FirstOrDefaultAsync();
 
+            if (anime == null)
+            {
+                throw new ArgumentNullException($"The anime with id:{id} does not exist.");
+            }
+
             return anime;
         }
 
@@ -122,6 +127,10 @@ namespace ASPNET_WebApp.Core.Services
                 await repo.SaveChangesAsync();
                 result = true;
             }
+			else
+			{
+                throw new ArgumentNullException("The edit model is null.");
+            }
 
             return result;
         }
@@ -131,6 +140,11 @@ namespace ASPNET_WebApp.Core.Services
             if (await AnimeAlreadyExistInCollection(model.Name))
             {
                 return false;
+            }
+
+            if (model == null)
+            {
+                throw new ArgumentNullException("The create model is null.");
             }
 
             var anime = new Anime
@@ -175,7 +189,7 @@ namespace ASPNET_WebApp.Core.Services
 
             if (anime == null)
             {
-                throw new ArgumentNullException(nameof(anime));
+                throw new ArgumentNullException($"The anime with id:{id} does not exist.");
             }
 
             StringBuilder sb=new StringBuilder();

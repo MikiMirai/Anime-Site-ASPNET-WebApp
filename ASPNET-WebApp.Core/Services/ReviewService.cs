@@ -24,6 +24,7 @@ namespace ASPNET_WebApp.Core.Services
             {
                 return false;
             }
+
             try
             {
                 Review review = new()
@@ -84,14 +85,15 @@ namespace ASPNET_WebApp.Core.Services
             }
             catch (Exception)
             {
-
-                throw;
+                throw new ArgumentNullException($"The review with id:{id} was not found.");
             }
         }
 
         public async Task<IEnumerable<AnimeReviewsListViewModel>> GetReviewsByAnimeId(string id)
 		{
-            var reviews = await dbContext.Reviews
+			try
+			{
+                var reviews = await dbContext.Reviews
                 .Include(x => x.User)
                 .Where(x => x.AnimeId == id)
                 .Select(x => new AnimeReviewsListViewModel
@@ -104,7 +106,12 @@ namespace ASPNET_WebApp.Core.Services
                     CommentsCount = x.Comments.Count
                 }).ToListAsync();
 
-            return reviews;
+                return reviews;
+            }
+			catch (Exception)
+			{
+                throw new ArgumentNullException($"The anime with id:{id} was not found.");
+            }
 		}
 	}
 }

@@ -55,6 +55,10 @@ namespace ASPNET_WebApp.Core.Services
                 await repo.SaveChangesAsync();
                 result = true;
             }
+			else
+			{
+                throw new ArgumentNullException("The user edit model was null.");
+			}
 
             return result;
         }

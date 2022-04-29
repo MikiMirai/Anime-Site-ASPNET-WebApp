@@ -21,6 +21,7 @@ namespace ASPNET_WebApp.Core.Services
             {
                 return false;
             }
+
             try
             {
                 Comment comment = new()
@@ -49,6 +50,11 @@ namespace ASPNET_WebApp.Core.Services
                 .Include(x => x.User)
                 .Where(x => x.ReviewId == id)
                 .ToListAsync();
+
+            if (comments == null)
+            {
+                throw new ArgumentNullException($"The review with id:{id} does not exist.");
+            }
 
             return comments;
         }

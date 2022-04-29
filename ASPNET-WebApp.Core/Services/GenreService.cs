@@ -47,6 +47,11 @@ namespace ASPNET_WebApp.Core.Services
                 return false;
             }
 
+			if (model == null)
+			{
+                throw new ArgumentNullException("The genre create model was null.");
+            }
+
             var genre = new Genre()
             { 
                 Name = model.Name,
@@ -64,7 +69,7 @@ namespace ASPNET_WebApp.Core.Services
 
             if (genre == null)
             {
-                throw new ArgumentNullException(nameof(genre));
+                throw new ArgumentNullException($"The genre with id:{id} was not found.");
             }
 
             var foundGenre = new GenreEditViewModel()
@@ -78,14 +83,14 @@ namespace ASPNET_WebApp.Core.Services
 
         public async Task<IEnumerable<Genre>> GetGenres()
         {
-            var genres = this.dbContext.Genres.ToList();
+            var genres = await this.dbContext.Genres.ToListAsync();
 
             return genres;
         }
 
         public async Task<bool> HasGenre(Anime anime, string name)
         {
-            var genre = dbContext.Genres.Where(g => g.Name == name).FirstOrDefault();
+            var genre = await dbContext.Genres.Where(g => g.Name == name).FirstOrDefaultAsync();
 
             if (anime.Genres == null)
             {
@@ -127,6 +132,10 @@ namespace ASPNET_WebApp.Core.Services
 
                 await repo.SaveChangesAsync();
                 result = true;
+            }
+            else
+            {
+                throw new ArgumentNullException("The edit model is null.");
             }
 
             return result;

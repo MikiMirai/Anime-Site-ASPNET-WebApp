@@ -82,10 +82,29 @@ namespace Anime_Site_WebApp_Tests.Mock
 
                 db.ForumPost.Add(new ForumPost
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    Id = WebAppMock.ForumPostId,
                     UserId = WebAppMock.UserId,
                     Description = "Pineaples and tomatoes don't go good together.",
                     Date = DateTime.Now.ToString(),
+                });
+
+                db.Comments.Add(new Comment
+                {
+                    Id = WebAppMock.CommentId,
+                    UserId = WebAppMock.UserId,
+                    ReviewId = WebAppMock.ReviewId,
+                    Date = DateTime.Now.ToString(),
+                    Description = "Cherries and strawberries don't go good together.",
+                });
+
+                db.Reviews.Add(new Review
+                {
+                    Id = WebAppMock.ReviewId,
+                    UserId = WebAppMock.UserId,
+                    AnimeId = WebAppMock.AnimeId,
+                    Description = "Apples and peaches don't go good together.",
+                    Date = DateTime.Now.ToString(),
+                    Score = 6.0,
                 });
 
                 db.SaveChanges();

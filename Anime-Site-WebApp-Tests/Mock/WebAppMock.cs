@@ -23,6 +23,9 @@ namespace Anime_Site_WebApp_Tests.Mock
         protected ApplicationDbContext dbContext;
         public static readonly string UserId = Guid.NewGuid().ToString();
         public static readonly string AnimeId = Guid.NewGuid().ToString();
+        public static readonly string ReviewId = Guid.NewGuid().ToString();
+        public static readonly string CommentId = Guid.NewGuid().ToString();
+        public static readonly string ForumPostId = Guid.NewGuid().ToString();
 
         public DependencyScope InitDb()
         {

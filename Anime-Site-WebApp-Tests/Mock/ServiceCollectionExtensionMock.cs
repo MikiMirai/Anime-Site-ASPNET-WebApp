@@ -62,7 +62,7 @@ namespace Anime_Site_WebApp_Tests.Mock
                     Id = WebAppMock.UserId,
                     UserName = "TestUser",
                     Email = "mail@mail.com",
-                    NormalizedUserName = "MAIL@MAIL.COM".Normalize().ToUpperInvariant()
+                    NormalizedUserName = "TESTUSER".Normalize().ToUpperInvariant()
                 });
 
                 db.Animes.Add(new Anime

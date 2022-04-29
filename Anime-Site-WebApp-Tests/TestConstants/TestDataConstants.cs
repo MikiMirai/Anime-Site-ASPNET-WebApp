@@ -1,10 +1,9 @@
 ﻿using ASPNET_WebApp.Core.Models;
-using ASPNET_WebApp.Infrastructure.Data;
 using System;
 
 namespace Anime_Site_WebApp_Tests.TestConstants
 {
-    public class TestDataConstants
+	public class TestDataConstants
     {
         public static readonly string AnimeId = Guid.NewGuid().ToString();
 
@@ -20,19 +19,6 @@ namespace Anime_Site_WebApp_Tests.TestConstants
             Producers = "AT-X, Studio Mausu, NBCUniversal Entertainment Japan, Tokyo MX, RAY, DMM pictures, BS NTV, SB Creative",
             Duration = "24 min. per ep.",
             Rating = "PG-13 - Teens 13 or older",
-
-            //Id = mocked
-
-            //Name
-            //ImageUrl
-            //Aired
-            //Episodes(int)
-            //Status
-            //Description
-            //Studios
-            //Producers
-            //Duration
-            //Rating
         };
     }
 }

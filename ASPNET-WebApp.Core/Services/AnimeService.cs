@@ -33,7 +33,27 @@ namespace ASPNET_WebApp.Core.Services
                 Status = anime.Status,
                 ReviewCount = anime.Reviews.Count,
             })
-                .OrderByDescending(a => a.Name)
+                .OrderBy(a => a.Name)
+                .ToListAsync();
+
+            return animeView;
+        }
+
+        public async Task<IEnumerable<AnimeListViewModel>> GetAnimesTrending()
+        {
+            var animes = repo.All<Anime>();
+
+            var animeView = await animes.Select(anime => new AnimeListViewModel()
+            {
+                Id = anime.Id,
+                Name = anime.Name,
+                Image = anime.Image,
+                Aired = anime.Aired,
+                Episodes = anime.Episodes,
+                Status = anime.Status,
+                ReviewCount = anime.Reviews.Count,
+            })
+                .OrderByDescending(a => a.ReviewCount)
                 .ToListAsync();
 
             return animeView;
@@ -186,5 +206,7 @@ namespace ASPNET_WebApp.Core.Services
 
             return foundAnime;
         }
+
+        
     }
 }

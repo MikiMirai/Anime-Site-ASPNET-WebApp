@@ -89,7 +89,7 @@ namespace ASPNET_WebApp.Core.Services
             }
         }
 
-        public async Task<IEnumerable<AnimeReviewsListViewModel>> GetReviewsByAnimeId(string id)
+        public async Task<List<AnimeReviewsListViewModel>> GetReviewsByAnimeId(string id)
 		{
 			try
 			{

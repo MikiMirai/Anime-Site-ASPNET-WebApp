@@ -2,6 +2,7 @@
 using ASPNET_WebApp.Core.Contracts;
 using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_WebApp.Controllers
@@ -16,6 +17,7 @@ namespace ASPNET_WebApp.Controllers
             genreService = _genreService;
         }
 
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         public async Task<IActionResult> ManageGenres()
         {
             var genres = await genreService.GetGenres();
@@ -23,6 +25,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         public async Task<IActionResult> Edit(string id)
         {
             var model = await genreService.GetGenreForEdit(id);
@@ -31,6 +34,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         public async Task<IActionResult> Edit(GenreEditViewModel model)
         {
             if (!ModelState.IsValid)
@@ -52,13 +56,14 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         public IActionResult AddGenre()
         {
             return View();
         }
 
         [HttpPost]
-        //[Authorize(Roles = RoleConstants.Roles.Admin)]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddGenre(GenreCreateViewModel model)
         {

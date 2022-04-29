@@ -1,4 +1,6 @@
-﻿using ASPNET_WebApp.Core.Contracts;
+﻿using ASPNET_WebApp.Core.Constants;
+using ASPNET_WebApp.Core.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ASPNET_WebApp.Controllers
@@ -11,6 +13,7 @@ namespace ASPNET_WebApp.Controllers
             this.reviewService = reviewService;
         }
 
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         public async Task<IActionResult> ManageReviews()
         {
             var reviews = await reviewService.GetReviews();

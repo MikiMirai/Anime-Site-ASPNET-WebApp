@@ -3,6 +3,22 @@
 }
 
 <style>
+	.custom-text-area {
+		height: 210px;
+		width: 100%;
+		resize: none;
+		padding-top: 14px;
+		padding-bottom: 20px;
+		padding-left: 20px;
+		padding-right: 20px;
+		width: 370px;
+		margin-bottom: 20px;
+	}
+
+	textarea::placeholder {
+		color: white;
+	}
+
 	.contact-info-list {
 		padding-top: 55px;
 		padding-bottom: 20px;
@@ -49,15 +65,13 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-6">
-						<div class="login__form">
+						<div class="login__form text-white">
 							<h3>Leave us a reply</h3>
 							<form action="#">
-								<div class="input__item">
-									<input type="text" placeholder="Name">
-								</div>
-								<div class="input__item">
-									<input type="text" placeholder="Text">
-								</div>
+								<label><b>Name</b></label>
+									<textarea class="custom-text-area" type="text" placeholder="Name" style="height: 60px;"></textarea>
+								<label><b>Text</b></label>
+									<textarea class="custom-text-area" type="text" placeholder="Text"></textarea>
 								<button type="submit" class="site-btn">Submit</button>
 							</form>
 						</div>

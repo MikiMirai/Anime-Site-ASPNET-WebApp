@@ -4,6 +4,7 @@ using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data;
 using ASPNET_WebApp.Infrastructure.Data.Identity;
 using ASPNET_WebApp.Infrastructure.Data.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
@@ -79,6 +80,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         public async Task<IActionResult> ManageAnimes()
         {
             var animes = await animeService.GetAnimes();
@@ -87,6 +89,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         public async Task<IActionResult> EditGenre(string id)
         {
             ViewBag.animeId = id;
@@ -125,6 +128,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditGenre(List<ManageAnimeGenreViewModel> model, string id)
         {
@@ -153,12 +157,14 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
+        public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AnimeCreateViewModel model)
         {
@@ -181,6 +187,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         public async Task<IActionResult> Edit(string id)
         {
             var model = await animeService.GetAnimeForEdit(id);
@@ -189,6 +196,7 @@ namespace ASPNET_WebApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RoleConstants.Roles.Admin)]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(AnimeEditViewModel model)
         {

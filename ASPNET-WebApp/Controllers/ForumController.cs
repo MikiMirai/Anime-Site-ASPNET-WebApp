@@ -43,7 +43,7 @@ namespace ASPNET_WebApp.Controllers
             ApplicationUser? user = await userManagerService.GetUserAsync(userContext);
 
 
-            if (await forumPostService.AddForumPost(model, user.Id))
+            if (await forumPostService.CreateForumPost(model, user.Id))
             {
                 ViewData[MessageConstants.SuccessMessage] = "Успешен запис!";
                 return RedirectToAction(nameof(ForumPosts));

@@ -13,7 +13,7 @@ namespace ASPNET_WebApp.Core.Services
             dbContext = _dbContext;
         }
 
-        public async Task<bool> AddForumPost(ForumPostCreateViewModel model, string userId)
+        public async Task<bool> CreateForumPost(ForumPostCreateViewModel model, string userId)
         {
             try
             {

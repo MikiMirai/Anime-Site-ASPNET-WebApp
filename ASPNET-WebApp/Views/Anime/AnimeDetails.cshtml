@@ -4,6 +4,68 @@
 	ViewData["Title"] = "Anime Details";
 }
 
+<style>
+	.custom-text-area {
+		background: transparent;
+		color: white;
+		border: transparent;
+		height: 95px;
+		width: 100%;
+		resize: none;
+	}
+
+	textarea::placeholder {
+		color: white;
+	}
+
+	.stars {
+		margin: 0;
+		padding: 0;
+	}
+
+	.rate {
+		float: left;
+		height: 46px;
+		padding: 0 10px;
+	}
+
+		.rate:not(:checked) > input {
+			position: absolute;
+			top: -9999px;
+		}
+
+		.rate:not(:checked) > label {
+			float: right;
+			width: 1em;
+			overflow: hidden;
+			white-space: nowrap;
+			cursor: pointer;
+			font-size: 30px;
+			color: #ccc;
+		}
+
+			.rate:not(:checked) > label:before {
+				content: '★ ';
+			}
+
+		.rate > input:checked ~ label {
+			color: #ffc700;
+		}
+
+		.rate:not(:checked) > label:hover,
+		.rate:not(:checked) > label:hover ~ label {
+			color: #deb217;
+		}
+
+		.rate > input:checked + label:hover,
+		.rate > input:checked + label:hover ~ label,
+		.rate > input:checked ~ label:hover,
+		.rate > input:checked ~ label:hover ~ label,
+		.rate > label:hover ~ input:checked ~ label {
+			color: #c59b08;
+		}
+</style>
+
 <!-- Anime Section Begin -->
 <section style="padding-top: 60px; padding-bottom: 100px;">
 	<div class="container">
@@ -67,24 +129,33 @@
 						<div class="form-group">
 							<input value="@Model.Anime.Id" name="AnimeId" hidden class="form-control" />
 						</div>
-						<textarea value="@ViewBag.Description" name="Description" placeholder="Your Review Text" style="margin-bottom: 10px;"></textarea>
+						<textarea value="@ViewBag.Description" name="Description" placeholder="Your Review Text" style="margin-bottom: 10px; background: #1d1e39; color: white;"></textarea>
 						<div class="section-title" style="margin-top: 10px; margin-bottom: 10px;">
 							<h5>Your Rating</h5>
 						</div>
-						<label for="lang">Score</label>
-						<select name="Score" id="lang" size="8">
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-							<option value="10">10</option>
-						</select>
-						<input type="submit" value="Submit" />
+						<div class="rate">
+							<input type="radio" id="star10" name="Score" value="10" />
+							<label for="star10" title="text">10 stars</label>
+							<input type="radio" id="star9" name="Score" value="9" />
+							<label for="star9" title="text">9 stars</label>
+							<input type="radio" id="star8" name="Score" value="8" />
+							<label for="star8" title="text">8 stars</label>
+							<input type="radio" id="star7" name="Score" value="7" />
+							<label for="star7" title="text">7 stars</label>
+							<input type="radio" id="star6" name="Score" value="6" />
+							<label for="star6" title="text">6 stars</label>
+							<input type="radio" id="star5" name="Score" value="5" />
+							<label for="star5" title="text">5 stars</label>
+							<input type="radio" id="star4" name="Score" value="4" />
+							<label for="star4" title="text">4 stars</label>
+							<input type="radio" id="star3" name="Score" value="3" />
+							<label for="star3" title="text">3 stars</label>
+							<input type="radio" id="star2" name="Score" value="2" />
+							<label for="star2" title="text">2 stars</label>
+							<input type="radio" id="star1" name="Score" value="1" />
+							<label for="star1" title="text">1 star</label>
+						</div>
+						<button type="submit" class="nav-link btn btn-primary btn-block" style="width: 20%; height: 50px;">Submit</button>
 					</form>
 				</div>
 				<div class="anime__details__review" style="margin-top: 80px;">
@@ -97,7 +168,7 @@
 							<div class="anime__review__item__text">
 								<h6>@review.UserName <span>@review.Date</span> <span class="float-right text-white text-bold">Score: @review.Score</span></h6>
 								<p>
-									@review.Description
+									<textarea name="Description" class="custom-text-area" disabled>@review.Description</textarea>
 								</p>
 								<p style="margin-top: 15px;">
 									<a asp-area="" asp-action="ReviewComments" asp-controller="Comment" asp-route-id="@review.Id" class="btn btn-block btn-outline-info btn-xs">Comments: @review.CommentsCount</a>

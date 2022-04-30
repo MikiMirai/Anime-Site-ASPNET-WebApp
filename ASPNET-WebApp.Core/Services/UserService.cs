@@ -2,6 +2,7 @@
 using ASPNET_WebApp.Core.Models;
 using ASPNET_WebApp.Infrastructure.Data.Identity;
 using ASPNET_WebApp.Infrastructure.Data.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASPNET_WebApp.Core.Services
@@ -9,13 +10,15 @@ namespace ASPNET_WebApp.Core.Services
     public class UserService : IUserService
     {
         private readonly IApplicationDbRepository repo;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public UserService(IApplicationDbRepository _repo)
-        {
-            repo = _repo;
-        }
+		public UserService(IApplicationDbRepository _repo, UserManager<ApplicationUser> userManager)
+		{
+			repo = _repo;
+			this.userManager = userManager;
+		}
 
-        public async Task<ApplicationUser> GetUserById(string id)
+		public async Task<ApplicationUser> GetUserById(string id)
         {
             return await repo.GetByIdAsync<ApplicationUser>(id);
         }
@@ -26,7 +29,7 @@ namespace ASPNET_WebApp.Core.Services
 
             return new UserEditViewModel()
             {
-                UserId = user.Id,
+                Id = user.Id,
                 UserName = user.UserName
             };
         }
@@ -36,7 +39,7 @@ namespace ASPNET_WebApp.Core.Services
             return await repo.All<ApplicationUser>()
                 .Select(u => new UserListViewModel()
                 {
-                    UserId = u.Id,
+                    Id = u.Id,
                     UserName = u.UserName,
                     Email = u.Email
                 })
@@ -46,14 +49,22 @@ namespace ASPNET_WebApp.Core.Services
         public async Task<bool> UpdateUser(UserEditViewModel model)
         {
             bool result = false;
-            var user = await repo.GetByIdAsync<ApplicationUser>(model.UserId);
+            var user = await repo.GetByIdAsync<ApplicationUser>(model.Id);
 
             if (user != null)
             {
-                user.UserName = model.UserName;
+                if (user == null)
+                {
+                    throw new ArgumentNullException($"Unable to load user with id:{model.Id}.");
+                }
 
-                await repo.SaveChangesAsync();
-                result = true;
+                if (model.UserName != user.UserName)
+                {
+                    user.UserName = model.UserName;
+                    await userManager.UpdateAsync(user);
+
+                    result = true;
+                }
             }
 			else
 			{

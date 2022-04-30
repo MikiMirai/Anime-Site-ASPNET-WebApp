@@ -45,7 +45,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
             var user = await service.GetUserById(id);
             var model = new RoleEditViewModel()
             {
-                UserId = user.Id,
+                Id = user.Id,
                 UserName = user.UserName
             };
 
@@ -65,7 +65,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Roles(RoleEditViewModel model)
         {
-            var user = await service.GetUserById(model.UserId);
+            var user = await service.GetUserById(model.Id);
             var userRoles = await userManager.GetRolesAsync(user);
             await userManager.RemoveFromRolesAsync(user, userRoles);
 
@@ -77,6 +77,7 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
             return RedirectToAction(nameof(ManageUsers));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
             var model = await service.GetUserForEdit(id);
@@ -87,14 +88,15 @@ namespace ASPNET_WebApp.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserEditViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(model);
+            //}
 
             if (await service.UpdateUser(model))
             {
                 ViewData[MessageConstants.SuccessMessage] = "Успешен запис!";
+                return RedirectToAction(nameof(ManageUsers));
             }
             else
             {
